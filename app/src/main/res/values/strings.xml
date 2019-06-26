@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">googleClassroom</string>
+    <string name="title_activity_mainpage">mainpage</string>
 </resources>
