@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     EditText usernametxt;
     EditText passwordtxt;
     Button button;
+    TextView textView;
     Socket socket;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         usernametxt = findViewById(R.id.usernametxt);
         passwordtxt = findViewById(R.id.passwordtxt);
         button = findViewById(R.id.loginbtn);
+        textView = findViewById(R.id.textView);
 
         button.setOnClickListener(new View.OnClickListener()
         {
@@ -45,10 +48,14 @@ public class MainActivity extends AppCompatActivity {
     public void send(final String[] str){
 //        Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
 
-//        SocketConnecting message = new SocketConnecting();
-//        message.execute(editText.getText().toString());
+        SocketConnecting message = new SocketConnecting(textView);
+        message.execute(str);
 
-        Thread thread =  new Thread(new Runnable() {
+//        return message.doInBackground();
+
+
+
+        /*Thread thread =  new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -64,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        thread.start();
+        thread.start();*/
     }
 
 }
