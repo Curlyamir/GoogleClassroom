@@ -29,6 +29,7 @@ import java.io.InputStream;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Register extends AppCompatActivity {
+    String result = "";
     EditText username;
     //ImageView profile_pic;
     private EditText pass1;
@@ -45,6 +46,19 @@ public class Register extends AppCompatActivity {
         pass2 = findViewById(R.id.passtxt2_re);
         check_pass = findViewById(R.id.check_pass_re);
         profile_pic = findViewById(R.id.profile_pic);
+        username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                String[] str =new String[1];
+                str[0] = username.getText().toString();
+                send(str , result , "username_register");
+
+                Toast.makeText(getApplicationContext(),"Hello",Toast.LENGTH_SHORT).show();
+                if (result.equals("unsuccessful")){
+                    Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         pass1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -170,5 +184,36 @@ public class Register extends AppCompatActivity {
             }
         }
     }
+
+    public void send(final String[] str , String result , String whatToDo){
+
+
+        SocketConnecting message = new SocketConnecting(result , whatToDo);
+        message.execute(str);
+        Toast.makeText(getApplicationContext(),"send method",Toast.LENGTH_SHORT).show();
+
+//        return message.doInBackground();
+
+
+
+        /*Thread thread =  new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    socket = new Socket("10.0.2.2", 6800);
+                    ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+                    out.writeObject(str);
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        thread.start();*/
+    }
+
 
 }
