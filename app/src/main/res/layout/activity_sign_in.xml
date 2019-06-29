@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".signin"
-    android:background="@drawable/in_back">
+    android:background="@drawable/in_back"
+    tools:context=".signin">
 
     <EditText
         android:id="@+id/usertxt_in"
