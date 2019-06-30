@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/refresh_toolbar"
+        android:title="Refresh"
+        android:orderInCategory="100"
+        app:showAsAction="never">
+    </item>
+    <item android:id="@+id/add_toolbar"
+        android:title="add"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_add_black_24dp"
+        >
+        <menu>
+            <item android:id="@+id/join_class"
+                android:title="Join class"
+                android:orderInCategory="100"
+                app:showAsAction="never"/>
+            <item android:id="@+id/create_class"
+                android:title="Create class"
+                app:showAsAction="never"
+                />
+        </menu>
+    </item>
+
+</menu>

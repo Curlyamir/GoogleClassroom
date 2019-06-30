@@ -1,5 +1,6 @@
 package com.example.googleclassroom;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,6 +10,7 @@ import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -22,6 +24,7 @@ public class signin extends AppCompatActivity {
     EditText username;
     private EditText pass;
     private CheckBox check_pass;
+    private Button signbtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +32,14 @@ public class signin extends AppCompatActivity {
         check_pass = findViewById(R.id.check_pass_re_in);
         pass= findViewById(R.id.passtxt_in);
         username = findViewById(R.id.usertxt_in);
+        signbtn = (Button)findViewById(R.id.main_sign);
+        signbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent main_page_intent = new Intent(getApplicationContext(), main_page.class);
+                startActivity(main_page_intent);
+            }
+        });
         pass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
