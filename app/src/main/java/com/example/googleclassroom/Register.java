@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -26,8 +27,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.ref.WeakReference;
+import java.net.Socket;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -39,6 +45,8 @@ public class Register extends AppCompatActivity {
     private EditText pass2;
     private CheckBox check_pass;
     CircleImageView profile_pic;
+    Button registerbtn;
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +57,17 @@ public class Register extends AppCompatActivity {
         pass2 = findViewById(R.id.passtxt2_re);
         check_pass = findViewById(R.id.check_pass_re);
         profile_pic = findViewById(R.id.profile_pic);
+        registerbtn = findViewById(R.id.main_register);
+
+        registerbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Register_check register_check = new Register_check(Register.this);
+                register_check.execute("register" , username.getText().toString() , pass1.getText().toString() , pass2.getText().toString());
+
+            }
+        });
+
         username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -223,4 +242,69 @@ public class Register extends AppCompatActivity {
     }
 
 
+}
+
+class Register_check extends AsyncTask<String , Void , String> {
+
+    Socket socket;
+    ObjectOutputStream out;
+    ObjectInputStream in;
+    DataInputStream dataInputStream;
+    boolean result;
+    WeakReference<Register> activityRefrence;
+    User user;
+
+    Register_check(Register context){
+        activityRefrence = new WeakReference<>(context);
+    }
+
+
+    @Override
+    protected String doInBackground(String... strings) {
+
+        try {
+//            Toast.makeText(activityRefrence.get(), "pressed in 1", Toast.LENGTH_SHORT).show();
+            socket = new Socket("10.0.2.2" , 6666);
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
+
+//            Toast.makeText(activityRefrence.get(), "pressed in 2", Toast.LENGTH_SHORT).show();
+
+            out.writeObject(strings);
+            out.flush();
+
+            result = in.readBoolean();
+
+            out.close();
+            in.close();
+            socket.close();
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        Register activity = activityRefrence.get();
+
+        if (activity == null || activity.isFinishing()){
+            return;
+        }
+
+        if (result){
+            Toast.makeText(activity, "Your Logged in Successfully", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(activity, main_page.class);
+            intent.putExtra("user" , user);
+            activity.startActivity(intent);
+        }else if (activity.username.getText().toString().length() < 5){
+            activity.username.setError("too short");
+        }else {
+            Toast.makeText(activity, "Username Is Already Taken !", Toast.LENGTH_LONG).show();
+        }
+
+    }
 }

@@ -169,6 +169,8 @@ class Signin_check extends AsyncTask<String , Void , String> {
             Intent intent = new Intent(activity, main_page.class);
             intent.putExtra("user" , user);
             activity.startActivity(intent);
+        }else{
+            Toast.makeText(activity, "Wrong Username Or Password !", Toast.LENGTH_LONG).show();
         }
 
     }
