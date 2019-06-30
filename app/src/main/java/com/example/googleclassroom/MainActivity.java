@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
         sign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signpage = new Intent(getApplicationContext(), signin.class);
-                startActivity(  signpage);
+                Intent signpage = new Intent(getApplicationContext(), Signin.class);
+                startActivity(signpage);
             }
         });
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
