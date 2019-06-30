@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".signin"
-    android:background="@drawable/in_back">
+    android:background="@drawable/in_back"
+    android:fitsSystemWindows="true">
 
     <EditText
         android:id="@+id/usertxt_in"
@@ -20,6 +21,7 @@
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
+        android:textColor="@color/TextOnS"
         app:layout_constraintBottom_toTopOf="@+id/passtxt-in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,6 +41,7 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
+        android:textColor="@color/TextOnS"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

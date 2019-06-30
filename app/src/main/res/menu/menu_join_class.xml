@@ -1,0 +1,16 @@
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/cancle_join_class"
+        android:icon="@drawable/ic_cancel_black_24dp"
+        android:title="Cancle"
+        app:showAsAction="always">
+
+    </item>
+
+    <item android:id="@+id/join_join_class"
+        android:title="Join class"
+        app:showAsAction="always">
+    </item>
+
+</menu>

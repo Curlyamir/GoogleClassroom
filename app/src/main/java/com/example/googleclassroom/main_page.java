@@ -1,9 +1,13 @@
 package com.example.googleclassroom;
 
+import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
@@ -16,7 +20,7 @@ public class main_page extends AppCompatActivity {
 
         toolbar = (Toolbar)findViewById(R.id.toolbar_main_page);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("A&H Classroom");
+        getSupportActionBar().setTitle("A&H Classroom");
     }
 
     @Override
@@ -25,12 +29,18 @@ public class main_page extends AppCompatActivity {
         return true;
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        if (item.getItemId()==R.id.add_toolbar)
-//        {
-//
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==R.id.create_class)
+        {
+            Intent createIntent = new Intent(getApplicationContext(),create_class.class);
+            startActivity(createIntent);
+        }
+        if (item.getItemId() == R.id.join_class)
+        {
+            Intent joinIntent = new Intent(getApplicationContext(),Join_Class.class);
+            startActivity(joinIntent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

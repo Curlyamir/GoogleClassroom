@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Join_Class"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:id="@+id/linearLayout"
+    app:layout_constraintEnd_toEndOf="parent"
+    tools:layout_editor_absoluteY="0dp">
+
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_create_class"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:theme="@style/AppTheme1"
+            app:theme="@style/ThemeOverlay.AppCompat.Light"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/join_class_img"
+            android:layout_width="198dp"
+            android:layout_height="162dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/connection"/>
+
+        <TextView
+            android:id="@+id/text_class_name"
+            android:layout_width="229dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="150dp"
+            android:text="Please enter class code"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryLight"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/class_door"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_code_black_24dp"
+            android:hint="Class code"
+            android:textColor="@color/TextOnS" />
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,15 +1,14 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 <item
-    android:id="@+id/cancle_createclass"
-
+    android:id="@+id/cancle_create_class"
     android:icon="@drawable/ic_cancel_black_24dp"
-    android:title="CREATE"
+    android:title="Cancle"
     app:showAsAction="always">
 
 </item>
 
-<item android:id="@+id/create_createclass"
+<item android:id="@+id/create_create_class"
     android:title="Create"
     app:showAsAction="always">
 </item>

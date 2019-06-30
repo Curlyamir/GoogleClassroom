@@ -12,15 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".create_class"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Join_Class"></activity>
+        <activity android:name=".create_class" />
         <activity android:name=".main_page" />
         <activity
             android:name=".Register"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".signin"
-            android:label="@string/title_activity_mainpage"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
