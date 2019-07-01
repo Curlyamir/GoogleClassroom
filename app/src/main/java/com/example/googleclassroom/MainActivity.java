@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent signpage = new Intent(getApplicationContext(), Signin.class);
-                startActivity(signpage);
+                startActivity(  signpage);
             }
         });
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

@@ -1,28 +1,105 @@
 package com.example.googleclassroom;
 
 import android.content.Intent;
-import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Toast;
-import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class main_page extends AppCompatActivity {
+    private NavigationView navigationView;
+    private DrawerLayout drawer;
+    private View navHeader;
+    private ImageView imgNavHeaderBg, imgProfile;
+    private TextView txtName, txtWebsite;
     Toolbar toolbar;
+    private String[] activityTitles;
+    public static int navItemIndex = 0;
+    private Handler mHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
-        toolbar = (Toolbar)findViewById(R.id.toolbar_main_page);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_main_page);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("A&H Classroom");
+        //getSupportActionBar().setTitle("A&H Classroom");
+        //mHandler = new Handler();
+        drawer =  findViewById(R.id.drawer_layout);
+        navigationView =  findViewById(R.id.nav_view);
+        navHeader = navigationView.getHeaderView(0);
+        txtName = navHeader.findViewById(R.id.name);
+        txtWebsite =  navHeader.findViewById(R.id.website);
+        imgNavHeaderBg =  navHeader.findViewById(R.id.img_header_bg);
+        imgProfile =  navHeader.findViewById(R.id.img_profile);
+        activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
+        //loadNavHeader();
+        setUpNavigationView();
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+    }
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else
+            super.onBackPressed();
     }
 
+    private void loadNavHeader() {
+//        txtName.setText("getName");
+//        txtWebsite.setText("nake");
+
+//        Glide.with(this).load(urlNavHeaderBg)
+//                .crossFade()
+//                .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                .into(imgNavHeaderBg);
+//
+//        // Loading profile image
+//        Glide.with(this).load(urlProfileImg)
+//                .crossFade()
+//                .thumbnail(0.5f)
+//                .bitmapTransform(new CircleTransform(this))
+//                .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                .into(imgProfile);
+        navigationView.getMenu().getItem(3).setActionView(R.layout.menu_dot);
+    }
+    private void setUpNavigationView() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                switch (menuItem.getItemId()) {
+                    case R.id.nav_notifications:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new NotificationFragment()).commit();
+                        break;
+                    case R.id.nav_settings:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new SettingsFragment()).commit();
+                        break;
+                    case R.id.nav_about_us:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new AboutUSFragment()).commit();
+                        break;
+                    case R.id.nav_classes_home:
+                        Intent tempInt = new Intent(getApplicationContext(), main_page.class);
+                        startActivity(tempInt);
+                        return true;
+                }
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar,menu);
@@ -33,7 +110,7 @@ public class main_page extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==R.id.create_class)
         {
-            Intent createIntent = new Intent(getApplicationContext(),create_class.class);
+            Intent createIntent = new Intent(getApplicationContext(), Create_class.class);
             startActivity(createIntent);
         }
         if (item.getItemId() == R.id.join_class)

@@ -17,10 +17,10 @@
                 android:title="Join class"
                 android:orderInCategory="100"
                 app:showAsAction="never"/>
-            <item android:id="@+id/create_class"
+            <item
+                android:id="@+id/create_class"
                 android:title="Create class"
-                app:showAsAction="never"
-                />
+                app:showAsAction="never" />
         </menu>
     </item>
 

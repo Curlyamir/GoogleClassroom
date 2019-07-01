@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".DialogFab">
+
+    <Button
+        android:id="@+id/fab_assign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="161dp"
+        android:background="?android:windowBackground"
+        android:drawableLeft="@drawable/ic_works_black_24dp"
+        android:text="Assignment"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/TextOnS"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/fab_topic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="113dp"
+        android:background="?android:windowBackground"
+        android:drawableLeft="@drawable/ic_topic_black_24dp"
+        android:text="Topic"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/TextOnS"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/fab_exam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="65dp"
+        android:background="?android:windowBackground"
+        android:drawableLeft="@drawable/ic_exam_black_24dp"
+        android:text="Exam"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/TextOnS"
+        android:textSize="20dp" />
+</RelativeLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".create_class"
+    tools:context=".Create_class"
     android:fitsSystemWindows="true">
 
     <LinearLayout
@@ -20,7 +20,6 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:theme="@style/AppTheme1"
-            app:theme="@style/ThemeOverlay.AppCompat.Light"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
     </LinearLayout>
@@ -31,6 +30,7 @@
         android:layout_height="57dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
+        android:textColor="@color/TextOnS"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout"
         app:layout_constraintHorizontal_bias="0.701"
@@ -44,6 +44,7 @@
         android:layout_height="57dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
+        android:textColor="@color/TextOnS"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout"
         app:layout_constraintHorizontal_bias="0.701"
@@ -57,6 +58,7 @@
         android:layout_height="57dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
+        android:textColor="@color/TextOnS"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout"
         app:layout_constraintHorizontal_bias="0.701"

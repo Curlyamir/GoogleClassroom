@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:cardBackgroundColor="@color/colorSDark"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/assign_dialog_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                android:src="@drawable/ic_close_white_24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/assign_dialog_close"
+                android:text="Create Assignment"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/assign_dialog_action"
+                android:layout_centerVertical="true"
+                android:id="@+id/assign_dialog_attach"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_attach_file_white_24dp"
+                android:background="?attr/selectableItemBackground"/>
+
+            <ImageButton
+                android:id="@+id/assign_dialog_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
+                android:background="?attr/selectableItemBackground"
+                android:padding="8dp"
+                android:src="@drawable/ic_check_black_24dp" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Title"
+                    android:layout_marginStart="25dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginTop="15dp"/>
+                <EditText
+                    android:id="@+id/assign_title"
+                    android:layout_width="378dp"
+                    android:layout_height="53dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/boxes_round"
+                    android:paddingLeft="8dp"
+                    android:textColor="@color/TextOnS"
+                    android:textColorHint="@color/colorSDark"
+                    android:textSize="25sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description(optinal)"
+                android:layout_marginStart="25dp"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/assign_discription"
+                android:layout_width="374dp"
+                android:layout_height="47dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/boxes_round"
+                android:hint="Description  "
+                android:textSize="16sp" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date:"
+                    android:layout_marginStart="18dp"
+                    android:textSize="18sp"
+                    android:id="@+id/text_view_assign1"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginTop="60dp"/>
+            <EditText
+                android:id="@+id/date_picker"
+                android:layout_width="100dp"
+                android:layout_toEndOf="@id/text_view_assign1"
+                android:text="No due date"
+                android:textColor="@color/TextOnS"
+                android:layout_height="47dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="50dp"
+                android:textSize="16sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Time:"
+                    android:layout_marginStart="230dp"
+                    android:textSize="18sp"
+                    android:id="@+id/text_view_assign2"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginTop="60dp"/>
+            <EditText
+                android:id="@+id/time_picker"
+                android:layout_width="100dp"
+                android:text="No due time"
+                android:textColor="@color/TextOnS"
+                android:layout_height="47dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="50dp"
+                android:layout_toEndOf="@id/text_view_assign2"
+                android:textSize="16sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Topic:"
+                    android:layout_marginStart="18dp"
+                    android:textSize="18sp"
+                    android:id="@+id/text_view_assign3"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginTop="60dp"/>
+                <EditText
+                    android:id="@+id/topic_picker"
+                    android:layout_width="100dp"
+                    android:layout_toEndOf="@id/text_view_assign3"
+                    android:text="No Topic"
+                    android:textColor="@color/TextOnS"
+                    android:layout_height="47dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="50dp"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Points"
+                    android:layout_marginStart="18dp"
+                    android:textSize="18sp"
+                    android:id="@+id/text_view_assign4"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginTop="60dp"/>
+                <EditText
+                    android:id="@+id/points_picker"
+                    android:layout_width="100dp"
+                    android:layout_toEndOf="@id/text_view_assign4"
+                    android:text="100"
+                    android:textColor="@color/TextOnS"
+                    android:layout_height="47dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="50dp"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+
+
+
+
+</LinearLayout>

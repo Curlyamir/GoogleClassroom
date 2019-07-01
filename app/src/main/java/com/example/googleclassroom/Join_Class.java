@@ -14,7 +14,7 @@ public class Join_Class extends AppCompatActivity {
         setContentView(R.layout.activity_join__class);
         toolbar = findViewById(R.id.toolbar_create_class);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Create Class");
+        getSupportActionBar().setTitle("Join Class");
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

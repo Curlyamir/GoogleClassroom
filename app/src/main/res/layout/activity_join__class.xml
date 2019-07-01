@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:theme="@style/AppTheme1"
-            app:theme="@style/ThemeOverlay.AppCompat.Light"
+
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
     <LinearLayout
     android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             android:id="@+id/join_class_img"
             android:layout_width="198dp"
             android:layout_height="162dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="60dp"
             android:src="@drawable/connection"/>
 
         <TextView

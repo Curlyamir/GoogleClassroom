@@ -6,4 +6,10 @@
     <string name="title_activity_main_page">main_page</string>
     <string name="navigation_drawer_open">Open navigartion bar</string>
     <string name="navigation_drawer_close">Close navigartion bar</string>
+    <string-array name="nav_item_activity_titles">
+        <item>Classes</item>
+        <item>Notifications</item>
+        <item>Settings</item>
+        <item>About us</item>
+    </string-array>
 </resources>

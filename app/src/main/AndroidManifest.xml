@@ -15,8 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Join_Class"></activity>
-        <activity android:name=".create_class" />
+        <activity android:name=".Classes"></activity>
+        <activity android:name=".Join_Class" />
+        <activity android:name=".Create_class" />
         <activity android:name=".main_page" />
         <activity
             android:name=".Register"

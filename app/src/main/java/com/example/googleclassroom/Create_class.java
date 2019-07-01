@@ -1,5 +1,6 @@
 package com.example.googleclassroom;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +10,7 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class create_class extends AppCompatActivity {
+public class Create_class extends AppCompatActivity {
     Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,11 @@ public class create_class extends AppCompatActivity {
         {
 
         }
-        if (item.getItemId() == R.id.join_class);
+        if (item.getItemId() == R.id.create_create_class)
+        {
+            Intent classInt = new Intent(getApplicationContext(),Classes.class);
+            startActivity(classInt);
+        }
         return super.onOptionsItemSelected(item);
     }
 }
