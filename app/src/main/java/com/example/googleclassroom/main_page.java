@@ -8,6 +8,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,16 +17,21 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class main_page extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View navHeader;
     private ImageView imgNavHeaderBg, imgProfile;
     private TextView txtName, txtWebsite;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
     Toolbar toolbar;
     private String[] activityTitles;
     public static int navItemIndex = 0;
     private Handler mHandler;
+    private ArrayList<Classrooms> class_items;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +49,17 @@ public class main_page extends AppCompatActivity {
         imgNavHeaderBg =  navHeader.findViewById(R.id.img_header_bg);
         imgProfile =  navHeader.findViewById(R.id.img_profile);
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
+        recyclerView = findViewById(R.id.recycle_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        class_items = new ArrayList<>();
+        for (int i=0;i<10;i++)
+        {
+            Classrooms classrooms = new Classrooms("Amir",i,i+1);
+            class_items.add(classrooms);
+        }
+        adapter = new CRAdapters(class_items,this);
+        recyclerView.setAdapter(adapter);
         //loadNavHeader();
         setUpNavigationView();
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
