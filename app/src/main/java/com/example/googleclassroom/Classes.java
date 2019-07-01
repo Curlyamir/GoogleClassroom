@@ -1,20 +1,26 @@
 package com.example.googleclassroom;
 
-import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationItemView;
-import android.support.design.internal.BottomNavigationMenu;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 public class Classes extends AppCompatActivity {
-
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_classes);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_classes);
+        setSupportActionBar(toolbar);
         BottomNavigationView bottom_nav = findViewById(R.id.bottom_nav_activity);
         bottom_nav.setOnNavigationItemSelectedListener(navListener);
     }
@@ -36,4 +42,28 @@ public class Classes extends AppCompatActivity {
                     return true;
                 }
             };
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_classes,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==R.id.refresh_toolbar)
+        {
+//            Intent createIntent = new Intent(getApplicationContext(), Create_class.class);
+//            startActivity(createIntent);
+        }
+        if (item.getItemId() == R.id.info_student)
+        {
+//            Intent joinIntent = new Intent(getApplicationContext(),Join_Class.class);
+//            startActivity(joinIntent);
+        }
+        if (item.getItemId() == R.id.teacher_setting_toolbar)
+        {
+//            Intent joinIntent = new Intent(getApplicationContext(),Join_Class.class);
+//            startActivity(joinIntent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

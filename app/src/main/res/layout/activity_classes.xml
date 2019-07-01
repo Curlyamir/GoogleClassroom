@@ -5,7 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Classes">
-    <android.support.design.widget.BottomNavigationView
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_classes"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                android:theme="@style/AppTheme1"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp"
+                app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

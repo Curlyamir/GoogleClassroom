@@ -1,13 +1,10 @@
 package com.example.googleclassroom;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatDialogFragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,10 +41,10 @@ public class DialogFab extends DialogFragment implements View.OnClickListener
                 dismiss();
                 break;
 
-//            case R.id.fab_topic:
-//                callback.onActionClick("Whatever");
-//                dismiss();
-//                break;
+            case R.id.fab_topic:
+                TopicFragment dialog = new TopicFragment();
+                dialog.show(getFragmentManager(),"tags2");
+                break;
 //            case R.id.fab_exam
 //                break;
         }
