@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
-import androidx.appcompat.app.AppCompatActivity;
+//import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
@@ -23,10 +25,19 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.ref.WeakReference;
+import java.net.Socket;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -38,7 +49,9 @@ public class Register extends AppCompatActivity {
     private EditText pass2;
     private CheckBox check_pass;
     CircleImageView profile_pic;
-    Button regeisterbtn;
+    Button registerbtn;
+    byte [] imgbyte;
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,26 +62,40 @@ public class Register extends AppCompatActivity {
         pass2 = findViewById(R.id.passtxt2_re);
         check_pass = findViewById(R.id.check_pass_re);
         profile_pic = findViewById(R.id.profile_pic);
-        regeisterbtn = findViewById(R.id.main_register);
-        regeisterbtn.setOnClickListener(new View.OnClickListener() {
+        registerbtn = findViewById(R.id.main_register);
+
+        registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mainInt = new Intent(getApplicationContext(), main_page.class);
-                startActivity(mainInt);
+
+                Register_check register_check = new Register_check(Register.this);
+
+                System.out.println("just pressed");
+
+
+                if (profile_pic.getDrawable() !=null) {
+                    System.out.println("first if start");
+                    Bitmap bmp = ((BitmapDrawable) profile_pic.getDrawable()).getBitmap();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    imgbyte = baos.toByteArray();
+                    System.out.println("first if end");
+                }
+                else{
+                    System.out.println("else start");
+                    imgbyte = new byte[1];
+                    register_check.execute("register" , String.valueOf(imgbyte), username.getText().toString() , pass1.getText().toString() , pass2.getText().toString());
+                    System.out.println("else end");
+
+                }
+
             }
+
         });
+
         username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-//                String[] str =new String[1];
-//                str[0] = username.getText().toString();
-//                //send(str , result , "username_register");
-//
-//                Toast.makeText(getApplicationContext(),"Hello",Toast.LENGTH_SHORT).show();
-//                if (result.equals("unsuccessful")){
-//                    Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
-//                }
-            }
+            public void onFocusChange(View v, boolean hasFocus) {}
         });
         pass1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -94,6 +121,9 @@ public class Register extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 showDialog();
+
+
+
                 return true;
             }
 
@@ -160,9 +190,7 @@ public class Register extends AppCompatActivity {
                     if (resultCode == RESULT_OK && data != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
                         profile_pic.setImageBitmap(selectedImage);
-                    }
-
-                    break;
+                    }break;
                 case 1:
                     if (resultCode == RESULT_OK && data != null) {
                         Bitmap bmp;
@@ -189,6 +217,7 @@ public class Register extends AppCompatActivity {
                         }
 
 
+                        //to know about the selected image width and height
                         Toast.makeText(this, profile_pic.getDrawable().getIntrinsicWidth() + " & " + profile_pic.getDrawable().getIntrinsicHeight(), Toast.LENGTH_SHORT).show();
 
                     } else {
@@ -200,4 +229,81 @@ public class Register extends AppCompatActivity {
     }
 
 
+    public byte[] getBytesFromBitmap(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+        return stream.toByteArray();
+    }
+
+
+}
+
+class Register_check extends AsyncTask<String , Void , String> {
+
+    Socket socket;
+    ObjectOutputStream out;
+    ObjectInputStream in;
+    DataInputStream dataInputStream;
+    boolean result;
+    WeakReference<Register> activityRefrence;
+    User user;
+    byte[] pic;
+
+    Register_check(Register context){
+        activityRefrence = new WeakReference<>(context);
+    }
+
+
+    @Override
+    protected String doInBackground(String... strings) {
+
+        try {
+//            Toast.makeText(activityRefrence.get(), "pressed in 1", Toast.LENGTH_SHORT).show();
+            socket = new Socket("10.0.2.2" , 6666);
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
+
+//            Toast.makeText(activityRefrence.get(), "pressed in 2", Toast.LENGTH_SHORT).show();
+
+            out.writeObject(strings);
+            out.flush();
+
+            result = in.readBoolean();
+
+            if (result) {
+                user = (User) in.readObject();
+            }
+
+            out.close();
+            in.close();
+            socket.close();
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        Register activity = activityRefrence.get();
+
+        if (activity == null || activity.isFinishing()){
+            return;
+        }
+
+        if (result){
+            Toast.makeText(activity, "Your Logged in Successfully", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(activity, main_page.class);
+            intent.putExtra("user" , user);
+            activity.startActivity(intent);
+        }else if (activity.username.getText().toString().length() < 5){
+            activity.username.setError("too short");
+        }else {
+            Toast.makeText(activity, "Username Is Already Taken !", Toast.LENGTH_LONG).show();
+        }
+
+    }
 }
