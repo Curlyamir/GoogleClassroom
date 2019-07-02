@@ -28,6 +28,7 @@ public class main_page extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     Toolbar toolbar;
+    User thisUser;
     private String[] activityTitles;
     public static int navItemIndex = 0;
     private Handler mHandler;
@@ -36,6 +37,8 @@ public class main_page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
+
+        thisUser = (User) getIntent().getSerializableExtra("user");
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_main_page);
         setSupportActionBar(toolbar);
@@ -129,6 +132,7 @@ public class main_page extends AppCompatActivity {
         if (item.getItemId()==R.id.create_class)
         {
             Intent createIntent = new Intent(getApplicationContext(), Create_class.class);
+            createIntent.putExtra("user" , thisUser);
             startActivity(createIntent);
         }
         if (item.getItemId() == R.id.join_class)

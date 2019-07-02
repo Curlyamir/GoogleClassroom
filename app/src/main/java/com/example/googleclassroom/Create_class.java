@@ -26,13 +26,14 @@ public class Create_class extends AppCompatActivity {
     EditText className;
     EditText classDescription;
     EditText roomNumber;
+    User thisUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_class);
         toolbar = findViewById(R.id.toolbar_create_class);
-        User user = (User) getIntent().getSerializableExtra("user");
+        thisUser = (User) getIntent().getSerializableExtra("user");
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Create Class");
         className = findViewById(R.id.classname);
@@ -74,7 +75,9 @@ public class Create_class extends AppCompatActivity {
 
             CreateClass createClass = new CreateClass(Create_class.this);
 
-            createClass.execute("create_class" , className.getText().toString() , classDescription.getText().toString() , roomNumber.getText().toString()  );
+            System.out.println(thisUser.username);
+
+            createClass.execute("create_class" , className.getText().toString() , classDescription.getText().toString() , roomNumber.getText().toString() , thisUser.username);
 
 
         }
