@@ -44,7 +44,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/class_door"
+            android:id="@+id/class_description"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

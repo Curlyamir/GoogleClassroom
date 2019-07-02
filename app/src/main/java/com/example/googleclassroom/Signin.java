@@ -137,7 +137,7 @@ class Signin_check extends AsyncTask<String , Void , String> {
             result = in.readBoolean();
 
             if (result){
-                user = (User)in.readObject();
+                user = (User) in.readObject();
                 System.out.println(user.username);
             }
 
