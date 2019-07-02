@@ -1,7 +1,7 @@
 package com.example.googleclassroom;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,14 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import java.io.File;
 import java.util.ArrayList;
 
-public class CRAdapters extends RecyclerView.Adapter<CRAdapters.ViewHolder>
+public class StudentAdaptor extends RecyclerView.Adapter<StudentAdaptor.ViewHolder>
 {
     private ArrayList<Classrooms> class_list;
     private Context context;
-    public CRAdapters(ArrayList<Classrooms> class_list, Context context) {
+    public StudentAdaptor(ArrayList<Classrooms> class_list, Context context) {
         this.class_list = class_list;
         this.context = context;
     }
@@ -34,9 +33,9 @@ public class CRAdapters extends RecyclerView.Adapter<CRAdapters.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-            Classrooms list_items =class_list.get(i);
-            int temp = list_items.getIndex();
-            String adds = Integer.toString((temp%9)+1);
+        Classrooms list_items =class_list.get(i);
+        int temp = list_items.getIndex();
+        String adds = Integer.toString((temp%9)+1);
         if (adds.equals("1"))
             viewHolder.card_back.setBackgroundResource(R.drawable.card1);
         if (adds.equals("2"))
@@ -55,8 +54,8 @@ public class CRAdapters extends RecyclerView.Adapter<CRAdapters.ViewHolder>
             viewHolder.card_back.setBackgroundResource(R.drawable.card8);
         if (adds.equals("9"))
             viewHolder.card_back.setBackgroundResource(R.drawable.card9);
-            viewHolder.headerView.setText(list_items.getName());
-            viewHolder.bottomView.setText("teacher dialog");
+        viewHolder.headerView.setText(list_items.getName());
+        viewHolder.bottomView.setText("teacher dialog");
     }
 
     @Override
@@ -69,13 +68,11 @@ public class CRAdapters extends RecyclerView.Adapter<CRAdapters.ViewHolder>
         public TextView headerView;
         public TextView bottomView;
         ImageButton card_back;
-        ImageButton dots;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             headerView = itemView.findViewById(R.id.header_card);
             bottomView = itemView.findViewById(R.id.bottom_card);
             card_back = itemView.findViewById(R.id.card_view);
-            dots = itemView.findViewById(R.id.cards_dot);
         }
     }
     public String getURLForResource (int resourceId) {

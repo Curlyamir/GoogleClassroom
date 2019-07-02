@@ -80,7 +80,7 @@
                     android:layout_marginTop="15dp"/>
                 <EditText
                     android:id="@+id/assign_title"
-                    android:layout_width="378dp"
+                    android:layout_width="match_parent"
                     android:layout_height="53dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
@@ -100,7 +100,7 @@
 
             <EditText
                 android:id="@+id/assign_discription"
-                android:layout_width="374dp"
+                android:layout_width="match_parent"
                 android:layout_height="47dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
@@ -134,7 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Time:"
-                    android:layout_marginStart="230dp"
+                    android:layout_marginStart="200dp"
                     android:textSize="18sp"
                     android:id="@+id/text_view_assign2"
                     android:textColor="@color/colorPrimaryDark"
