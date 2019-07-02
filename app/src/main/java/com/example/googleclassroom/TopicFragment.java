@@ -36,7 +36,7 @@ public class TopicFragment extends AppCompatDialogFragment
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        String topic = editText.getText().toString();
                     }
                 });
         editText = view.findViewById(R.id.topic_text);

@@ -171,10 +171,13 @@ public class Register extends AppCompatActivity {
                 if (options[item].equals("Take Photo")) {
                     Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(takePicture, 0);
+                    dialog.dismiss();
+
 
                 } else if (options[item].equals("Choose from Gallery")) {
                     Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(pickPhoto, 1);
+                    dialog.dismiss();
 
                 } else if (options[item].equals("Cancel")) {
                     dialog.dismiss();
