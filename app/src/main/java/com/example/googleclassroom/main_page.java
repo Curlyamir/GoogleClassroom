@@ -1,6 +1,8 @@
 package com.example.googleclassroom;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import com.google.android.material.navigation.NavigationView;
@@ -39,7 +41,7 @@ public class main_page extends AppCompatActivity {
         setContentView(R.layout.activity_main_page);
 
         thisUser = (User) getIntent().getSerializableExtra("user");
-
+        Bitmap userpic = BitmapFactory.decodeByteArray(thisUser.picture,0,thisUser.picture.length);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_main_page);
         setSupportActionBar(toolbar);
@@ -66,6 +68,7 @@ public class main_page extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         //loadNavHeader();
         setUpNavigationView();
+        imgProfile.setImageBitmap(userpic);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
