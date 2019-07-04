@@ -36,7 +36,7 @@ public class Create_class extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Create Class");
         className = findViewById(R.id.classname);
-        classDescription = findViewById(R.id.class_description);
+        classDescription = findViewById(R.id.class_enter_code);
         roomNumber = findViewById(R.id.class_door);
         className.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -120,6 +120,8 @@ class CreateClass extends AsyncTask<String , Void , String> {
             if (result) {
                 aClass = (Class) in.readObject();
                 activityRefrence.get().thisUser = (User) in.readObject();
+                System.out.println(activityRefrence.get().thisUser.username);
+                System.out.println(aClass.name);
             }
 
             out.close();

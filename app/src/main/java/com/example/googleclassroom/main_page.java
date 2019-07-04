@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -137,8 +139,17 @@ public class main_page extends AppCompatActivity {
         if (item.getItemId() == R.id.join_class)
         {
             Intent joinIntent = new Intent(getApplicationContext(),Join_Class.class);
+            joinIntent.putExtra("user" , thisUser);
             startActivity(joinIntent);
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK)
+        {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

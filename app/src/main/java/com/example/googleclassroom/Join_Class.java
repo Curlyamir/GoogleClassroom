@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.DataInputStream;
@@ -18,11 +19,15 @@ import java.net.Socket;
 
 public class Join_Class extends AppCompatActivity {
     Toolbar toolbar;
+    TextView code;
+    User thisUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join__class);
         toolbar = findViewById(R.id.toolbar_create_class);
+        code = findViewById(R.id.class_enter_code);
+        thisUser = (User) getIntent().getSerializableExtra("user");
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Join Class");
     }
@@ -38,7 +43,10 @@ public class Join_Class extends AppCompatActivity {
         {
 
         }
-        if (item.getItemId() == R.id.join_join_class);
+        if (item.getItemId() == R.id.join_join_class){
+            JoinClass join = new JoinClass(Join_Class.this);
+            join.execute("join_class" , code.getText().toString() , thisUser.username);
+        }
         return super.onOptionsItemSelected(item);
     }
 }
@@ -78,6 +86,7 @@ class JoinClass extends AsyncTask<String , Void , String> {
 
             if (result) {
                 aClass = (Class) in.readObject();
+                activityRefrence.get().thisUser = (User) in.readObject();
             }
 
             out.close();
@@ -102,8 +111,9 @@ class JoinClass extends AsyncTask<String , Void , String> {
 
         if (result){
             Toast.makeText(activity, "Class Created", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(activity, main_page.class);
+            Intent intent = new Intent(activity, Classes.class);
             intent.putExtra("aClass" , aClass);
+            intent.putExtra("user" , activity.thisUser);
             activity.startActivity(intent);
         }
         else {
