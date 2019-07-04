@@ -63,4 +63,8 @@ public class Class implements Serializable {
     public int getStudentsSize() {
         return this.students.size();
     }
+    public boolean findTeacher(User myuser)
+    {
+        return this.teachers.contains(myuser);
+    }
 }

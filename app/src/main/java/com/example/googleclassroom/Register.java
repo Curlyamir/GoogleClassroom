@@ -79,13 +79,13 @@ public class Register extends AppCompatActivity {
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     imgbyte = baos.toByteArray();
-                    register_check.execute("register" , String.valueOf(imgbyte), username.getText().toString() , pass1.getText().toString() , pass2.getText().toString());
+                    register_check.execute("register" , imgbyte, username.getText().toString() , pass1.getText().toString() , pass2.getText().toString());
                     System.out.println("first if end");
                 }
                 else{
                     System.out.println("else start");
                     imgbyte = new byte[1];
-                    register_check.execute("register" , String.valueOf(imgbyte), username.getText().toString() , pass1.getText().toString() , pass2.getText().toString());
+                    register_check.execute("register" , imgbyte, username.getText().toString() , pass1.getText().toString() , pass2.getText().toString());
                     System.out.println("else end");
 
                 }
@@ -246,7 +246,7 @@ public class Register extends AppCompatActivity {
 
 }
 
-class Register_check extends AsyncTask<String , Void , String> {
+class Register_check extends AsyncTask<Object , Void , String> {
 
     Socket socket;
     ObjectOutputStream out;
@@ -263,7 +263,7 @@ class Register_check extends AsyncTask<String , Void , String> {
 
 
     @Override
-    protected String doInBackground(String... strings) {
+    protected String doInBackground(Object... strings) {
 
         try {
 //            Toast.makeText(activityRefrence.get(), "pressed in 1", Toast.LENGTH_SHORT).show();
@@ -273,7 +273,7 @@ class Register_check extends AsyncTask<String , Void , String> {
 
 //            Toast.makeText(activityRefrence.get(), "pressed in 2", Toast.LENGTH_SHORT).show();
 
-            String[] tosend = new String[]{strings[0] , strings[2] , strings[3] , strings[4]};
+            String[] tosend = new String[]{strings[0].toString() , strings[2].toString() , strings[3].toString() , strings[4].toString()};
 
 
             out.writeObject(tosend);
@@ -282,7 +282,7 @@ class Register_check extends AsyncTask<String , Void , String> {
             result = in.readBoolean();
 
             if (result) {
-                out.writeObject(strings[1].getBytes());
+                out.writeObject(strings[1]);
                 out.flush();
                 user = (User) in.readObject();
 

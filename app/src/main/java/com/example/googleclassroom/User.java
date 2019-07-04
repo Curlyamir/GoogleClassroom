@@ -1,5 +1,7 @@
 package com.example.googleclassroom;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -22,6 +24,14 @@ public class User implements Serializable {
         this.picture = picture;
     }
 
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        return this.username.equals(((User)obj).username);
+    }
+
     static ArrayList<User> users = new ArrayList<>();
 
+    public String getUsername() {
+        return username;
+    }
 }

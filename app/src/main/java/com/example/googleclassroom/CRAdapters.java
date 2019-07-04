@@ -19,9 +19,11 @@ public class CRAdapters extends RecyclerView.Adapter<CRAdapters.ViewHolder>
 {
     private ArrayList<Class> class_list;
     private Context context;
-    public CRAdapters(ArrayList<Class> class_list, Context context) {
+    private User myuser;
+    public CRAdapters(ArrayList<Class> class_list, Context context,User myuser) {
         this.class_list = class_list;
         this.context = context;
+        this.myuser = myuser;
     }
 
     @NonNull
@@ -55,9 +57,17 @@ public class CRAdapters extends RecyclerView.Adapter<CRAdapters.ViewHolder>
             viewHolder.card_back.setBackgroundResource(R.drawable.card8);
         if (adds.equals("9"))
             viewHolder.card_back.setBackgroundResource(R.drawable.card9);
-        int tempnum = list_items.getStudentsSize();
-        String tempstr = Integer.toString(tempnum);
-        tempstr = tempstr+" students";
+        String tempstr=null;
+        if (list_items.findTeacher(myuser))
+        {
+            tempstr = list_items.teachers.get(0).toString();
+        }
+        else
+        {
+            int tempnum = list_items.getStudentsSize();
+            tempstr = Integer.toString(tempnum);
+            tempstr = tempstr+" students";
+        }
         viewHolder.headerView.setText(list_items.getName());
         viewHolder.bottomView.setText(tempstr);
         System.out.println(adds);

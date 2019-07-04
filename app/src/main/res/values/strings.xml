@@ -6,6 +6,7 @@
     <string name="title_activity_main_page">main_page</string>
     <string name="navigation_drawer_open">Open navigartion bar</string>
     <string name="navigation_drawer_close">Close navigartion bar</string>
+    <string name="ip_add">10.0.2.2</string>
     <string-array name="nav_item_activity_titles">
         <item>Classes</item>
         <item>Notifications</item>
