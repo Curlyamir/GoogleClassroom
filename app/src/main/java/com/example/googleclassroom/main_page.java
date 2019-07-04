@@ -40,6 +40,7 @@ public class main_page extends AppCompatActivity {
 
         thisUser = (User) getIntent().getSerializableExtra("user");
 
+
         toolbar = (Toolbar) findViewById(R.id.toolbar_main_page);
         setSupportActionBar(toolbar);
         //getSupportActionBar().setTitle("A&H Classroom");

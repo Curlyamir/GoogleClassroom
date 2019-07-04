@@ -12,7 +12,7 @@ public class Class implements Serializable {
     String[] notification;
     int roomNumber;
     ArrayList<User> teachers;
-    ArrayList<User> stuents;
+    ArrayList<User> students;
 
     public Class(int id, String name, String description, int roomNumber) {
         this.id = id;
@@ -32,7 +32,7 @@ public class Class implements Serializable {
         this.description = description;
         this.roomNumber = roomNumber;
         this.teachers = teachers;
-        this.stuents = stuents;
+        this.students = stuents;
     }
 
     public void setNotification(String[] notification) {

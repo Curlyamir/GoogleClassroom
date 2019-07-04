@@ -272,7 +272,7 @@ class Register_check extends AsyncTask<String , Void , String> {
             String[] tosend = new String[]{strings[0] , strings[2] , strings[3] , strings[4]};
 
 
-            out.writeObject(strings);
+            out.writeObject(tosend);
             out.flush();
 
             result = in.readBoolean();
