@@ -42,75 +42,7 @@ public class Join_Class extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
-class Join_class extends AsyncTask<String , Void , String> {
 
-    Socket socket;
-    ObjectOutputStream out;
-    ObjectInputStream in;
-    DataInputStream dataInputStream;
-    boolean result;
-    WeakReference<Register> activityRefrence;
-    User user;
-    byte[] pic;
-
-    Join_class(Register context){
-        activityRefrence = new WeakReference<>(context);
-    }
-
-
-    @Override
-    protected String doInBackground(String... strings) {
-
-        try {
-//            Toast.makeText(activityRefrence.get(), "pressed in 1", Toast.LENGTH_SHORT).show();
-            socket = new Socket("10.0.2.2" , 6666);
-            out = new ObjectOutputStream(socket.getOutputStream());
-            in = new ObjectInputStream(socket.getInputStream());
-
-//            Toast.makeText(activityRefrence.get(), "pressed in 2", Toast.LENGTH_SHORT).show();
-
-            out.writeObject(strings);
-            out.flush();
-
-            result = in.readBoolean();
-
-            if (result) {
-                user = (User) in.readObject();
-            }
-
-            out.close();
-            in.close();
-            socket.close();
-
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    @Override
-    protected void onPostExecute(String s) {
-        Register activity = activityRefrence.get();
-
-        if (activity == null || activity.isFinishing()){
-            return;
-        }
-
-        if (result){
-            Toast.makeText(activity, "Your Logged in Successfully", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(activity, main_page.class);
-            intent.putExtra("user" , user);
-            activity.startActivity(intent);
-        }else if (activity.username.getText().toString().length() < 5){
-            activity.username.setError("too short");
-        }else {
-            Toast.makeText(activity, "Username Is Already Taken !", Toast.LENGTH_LONG).show();
-        }
-
-    }
-}
 
 class JoinClass extends AsyncTask<String , Void , String> {
 

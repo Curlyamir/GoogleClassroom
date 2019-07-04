@@ -120,6 +120,7 @@ class CreateClass extends AsyncTask<String , Void , String> {
 
             if (result) {
                 aClass = (Class) in.readObject();
+                activityRefrence.get().thisUser = (User) in.readObject();
             }
 
             out.close();
@@ -144,8 +145,9 @@ class CreateClass extends AsyncTask<String , Void , String> {
 
         if (result){
             Toast.makeText(activity, "Class Created", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(activity, main_page.class);
+            Intent intent = new Intent(activity, Classes.class);
             intent.putExtra("aClass" , aClass);
+            intent.putExtra("user" , activity.thisUser);
             activity.startActivity(intent);
         }
         else {

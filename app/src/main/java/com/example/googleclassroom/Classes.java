@@ -10,20 +10,47 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class Classes extends AppCompatActivity {
     Toolbar toolbar;
+    User thisUser;
+    Class thisClass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_classes);
         toolbar = (Toolbar) findViewById(R.id.toolbar_classes);
+        thisUser = (User) getIntent().getSerializableExtra("user");
+        thisClass = (Class) getIntent().getSerializableExtra("aClass");
         setSupportActionBar(toolbar);
         BottomNavigationView bottom_nav = findViewById(R.id.bottom_nav_activity);
         bottom_nav.setOnNavigationItemSelectedListener(navListener);
+        //onBackPressed();
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK)
+        {
+            Intent tempInt= new Intent(getApplicationContext(),main_page.class);
+            tempInt.putExtra("user",thisUser);
+            tempInt.putExtra("aClass",thisClass);
+            startActivity(tempInt);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+    //    @Override
+//    public void onBackPressed() {
+//        Intent tempInt= new Intent(getApplicationContext(),main_page.class);
+//        tempInt.putExtra("user",thisUser);
+//        tempInt.putExtra("aClass",thisClass);
+//        startActivity(tempInt);
+//    }
+
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override

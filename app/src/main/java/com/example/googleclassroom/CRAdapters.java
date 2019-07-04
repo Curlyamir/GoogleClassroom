@@ -17,9 +17,9 @@ import java.util.ArrayList;
 
 public class CRAdapters extends RecyclerView.Adapter<CRAdapters.ViewHolder>
 {
-    private ArrayList<Classrooms> class_list;
+    private ArrayList<Class> class_list;
     private Context context;
-    public CRAdapters(ArrayList<Classrooms> class_list, Context context) {
+    public CRAdapters(ArrayList<Class> class_list, Context context) {
         this.class_list = class_list;
         this.context = context;
     }
@@ -34,7 +34,7 @@ public class CRAdapters extends RecyclerView.Adapter<CRAdapters.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-            Classrooms list_items =class_list.get(i);
+            Class list_items =class_list.get(i);
             int temp = list_items.getIndex();
             String adds = Integer.toString((temp%9)+1);
         if (adds.equals("1"))
@@ -55,8 +55,12 @@ public class CRAdapters extends RecyclerView.Adapter<CRAdapters.ViewHolder>
             viewHolder.card_back.setBackgroundResource(R.drawable.card8);
         if (adds.equals("9"))
             viewHolder.card_back.setBackgroundResource(R.drawable.card9);
-            viewHolder.headerView.setText(list_items.getName());
-            viewHolder.bottomView.setText("teacher dialog");
+        int tempnum = list_items.getStudentsSize();
+        String tempstr = Integer.toString(tempnum);
+        tempstr = tempstr+" students";
+        viewHolder.headerView.setText(list_items.getName());
+        viewHolder.bottomView.setText(tempstr);
+        System.out.println(adds);
     }
 
     @Override

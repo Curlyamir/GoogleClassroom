@@ -29,6 +29,7 @@ public class main_page extends AppCompatActivity {
     private TextView txtName, txtWebsite;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
+    private Class thisClass;
     Toolbar toolbar;
     User thisUser;
     private String[] activityTitles;
@@ -44,6 +45,7 @@ public class main_page extends AppCompatActivity {
         Bitmap userpic = BitmapFactory.decodeByteArray(thisUser.picture,0,thisUser.picture.length);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_main_page);
+        thisClass = (Class) getIntent().getSerializableExtra("aClass");
         setSupportActionBar(toolbar);
         //getSupportActionBar().setTitle("A&H Classroom");
         //mHandler = new Handler();
@@ -58,15 +60,8 @@ public class main_page extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycle_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        class_items = new ArrayList<>();
-        for (int i=0;i<10;i++)
-        {
-            Classrooms classrooms = new Classrooms("Amir",i,i);
-            class_items.add(classrooms);
-        }
-        adapter = new CRAdapters(class_items,this);
+        adapter = new CRAdapters(thisUser.classes,this);
         recyclerView.setAdapter(adapter);
-        //loadNavHeader();
         setUpNavigationView();
         imgProfile.setImageBitmap(userpic);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
