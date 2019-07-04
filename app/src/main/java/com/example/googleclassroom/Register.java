@@ -96,7 +96,11 @@ public class Register extends AppCompatActivity {
 
         username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {}
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (username.getText().toString().length() > 0) {
+
+                }
+            }
         });
         pass1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

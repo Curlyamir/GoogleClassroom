@@ -4,10 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class User implements Serializable {
-
     private static final long serialVersionUID = 9307449585L;
-
-
     String username;
     String password;
     byte[] picture;
@@ -19,10 +16,10 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public User(String username, String password, boolean logedIn) {
+    public User(String username, String password, byte[] picture) {
         this.username = username;
         this.password = password;
-        this.logedIn = logedIn;
+        this.picture = picture;
     }
 
     static ArrayList<User> users = new ArrayList<>();
