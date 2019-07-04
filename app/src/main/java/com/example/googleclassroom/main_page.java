@@ -62,10 +62,12 @@ public class main_page extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycle_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CRAdapters(thisUser.classes,this);
+        adapter = new CRAdapters(thisUser.classes,this,thisUser);
         recyclerView.setAdapter(adapter);
         setUpNavigationView();
         imgProfile.setImageBitmap(userpic);
+        txtName.setText(thisUser.username);
+        txtWebsite.setText(thisUser.getClasses()+ " Classes");
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();

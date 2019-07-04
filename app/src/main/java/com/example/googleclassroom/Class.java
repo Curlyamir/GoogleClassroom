@@ -1,5 +1,7 @@
 package com.example.googleclassroom;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -13,6 +15,7 @@ public class Class implements Serializable {
     String roomNumber;
     ArrayList<User> teachers;
     ArrayList<User> students;
+    ArrayList<Topic> topics;
 
     public Class(String name, String description, String roomNumber , String id,int index) {
         this.id = id;
@@ -66,5 +69,14 @@ public class Class implements Serializable {
     public boolean findTeacher(User myuser)
     {
         return this.teachers.contains(myuser);
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        return this.id.equals(((Class)obj).id);
+    }
+
+    public ArrayList<User> getTeachers() {
+        return teachers;
     }
 }

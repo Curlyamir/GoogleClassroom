@@ -6,6 +6,21 @@
         android:orderInCategory="100"
         app:showAsAction="never">
     </item>
+    <item android:id="@+id/main_page_classes"
+        android:title="Classes"
+        android:orderInCategory="100"
+        app:showAsAction="never">
+    </item>
+    <item android:id="@+id/about_us_classes"
+        android:title="About US"
+        android:orderInCategory="100"
+        app:showAsAction="never">
+    </item>
+    <item android:id="@+id/notification_classes"
+        android:title="Notifications"
+        android:orderInCategory="100"
+        app:showAsAction="never">
+    </item>
     <item android:id="@+id/teacher_setting_toolbar"
         android:title="Settings"
         android:orderInCategory="100"

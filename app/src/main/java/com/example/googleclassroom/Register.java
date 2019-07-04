@@ -105,7 +105,7 @@ public class Register extends AppCompatActivity {
         pass1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (pass1.getText().toString().trim().length() <8) {
+                if (pass1.getText().toString().trim().length() <5) {
                     pass1.setError("too short");
                 }
             }
@@ -113,7 +113,7 @@ public class Register extends AppCompatActivity {
         pass2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (pass1.getText().toString().trim().length() < 8) {
+                if (pass1.getText().toString().trim().length() < 5) {
                     pass1.setError("too short");
                 }
                 if (!pass1.getText().toString().trim().equals(pass2.getText().toString().trim()))

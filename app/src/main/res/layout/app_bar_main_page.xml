@@ -9,7 +9,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,6 +35,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recycle_view"/>
+        android:layout_marginTop="30dp"
+        android:id="@+id/recycle_view"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

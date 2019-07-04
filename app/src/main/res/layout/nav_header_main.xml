@@ -27,7 +27,7 @@
             android:layout_height="@dimen/profile_height"
             android:layout_marginTop="25dp"
             android:src="@drawable/student2"
-            app:civ_border_color="#00acc1"
+            app:civ_border_color="#FFFFFF"
             app:civ_border_width="2dp"/>
 
         <TextView

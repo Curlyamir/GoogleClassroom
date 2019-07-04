@@ -18,6 +18,7 @@ public class Classes extends AppCompatActivity {
     Toolbar toolbar;
     User thisUser;
     Class thisClass;
+    boolean isTeacher = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +27,8 @@ public class Classes extends AppCompatActivity {
         thisUser = (User) getIntent().getSerializableExtra("user");
         thisClass = (Class) getIntent().getSerializableExtra("aClass");
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(thisClass.name);
+        isTeacher = thisClass.findTeacher(thisUser);
         BottomNavigationView bottom_nav = findViewById(R.id.bottom_nav_activity);
         bottom_nav.setOnNavigationItemSelectedListener(navListener);
         //onBackPressed();
@@ -83,14 +86,38 @@ public class Classes extends AppCompatActivity {
         }
         if (item.getItemId() == R.id.info_student)
         {
-//            Intent joinIntent = new Intent(getApplicationContext(),Join_Class.class);
-//            startActivity(joinIntent);
+            Intent infoIntent = new Intent(getApplicationContext(),Class_info.class);
+            infoIntent.putExtra("user",thisUser);
+            infoIntent.putExtra("aClass",thisClass);
+            startActivity(infoIntent);
         }
         if (item.getItemId() == R.id.teacher_setting_toolbar)
         {
-//            Intent joinIntent = new Intent(getApplicationContext(),Join_Class.class);
-//            startActivity(joinIntent);
+            Intent setIntent = new Intent(getApplicationContext(), Settings_class.class);
+            setIntent.putExtra("user",thisUser);
+            setIntent.putExtra("aClass",thisClass);
+            startActivity(setIntent);
+        }
+        if (item.getItemId()==R.id.about_us_classes)
+        {
+
+        }
+        if (item.getItemId() == R.id.notification_classes)
+        {
+
+        }
+        if (item.getItemId() == R.id.main_page_classes)
+        {
+
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (isTeacher)
+            menu.findItem(R.id.info_student).setVisible(false);
+        else
+            menu.findItem(R.id.teacher_setting_toolbar).setVisible(false);
+        return super.onPrepareOptionsMenu(menu);
     }
 }

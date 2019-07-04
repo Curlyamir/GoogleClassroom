@@ -34,4 +34,12 @@ public class User implements Serializable {
     public String getUsername() {
         return username;
     }
+
+    public String getClasses() {
+        return Integer.toString(classes.size());
+    }
+    public int findClass (Class myclass)
+    {
+        return this.classes.indexOf(myclass);
+    }
 }
