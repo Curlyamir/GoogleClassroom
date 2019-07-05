@@ -62,6 +62,11 @@ public class Classes extends AppCompatActivity {
                     if (item.getItemId() == R.id.people_bottom_nav)
                     {
                         selectedFragment = new PeopleFragment();
+                        selectedFragment = new PeopleFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("user",thisUser);
+                        bundle.putSerializable("aClass",thisClass);
+                        selectedFragment.setArguments(bundle);
                     }
                     if (item.getItemId() ==R.id.classwork_bottom_nav)
                     {
@@ -98,18 +103,18 @@ public class Classes extends AppCompatActivity {
             setIntent.putExtra("aClass",thisClass);
             startActivity(setIntent);
         }
-        if (item.getItemId()==R.id.about_us_classes)
-        {
-
-        }
-        if (item.getItemId() == R.id.notification_classes)
-        {
-
-        }
-        if (item.getItemId() == R.id.main_page_classes)
-        {
-
-        }
+//        if (item.getItemId()==R.id.about_us_classes)
+//        {
+//
+//        }
+//        if (item.getItemId() == R.id.notification_classes)
+//        {
+//
+//        }
+//        if (item.getItemId() == R.id.main_page_classes)
+//        {
+//
+//        }
         return super.onOptionsItemSelected(item);
     }
     @Override

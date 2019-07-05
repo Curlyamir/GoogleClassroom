@@ -12,7 +12,7 @@
         app:showAsAction="never">
     </item>
     <item android:id="@+id/about_us_classes"
-        android:title="About US"
+        android:title="About Us"
         android:orderInCategory="100"
         app:showAsAction="never">
     </item>

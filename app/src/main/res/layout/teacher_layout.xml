@@ -4,7 +4,8 @@
     android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/teacher_name_card">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -14,20 +15,26 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/teacher_pic"
+                android:id="@+id/teacher_name_pic"
                 android:src="@drawable/student2"/>
             <TextView
                 android:id="@+id/teacher_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
+                android:layout_marginStart="70dp"
                 android:layout_marginTop="30dp"
-                android:layout_toRightOf="@+id/teacher_pic"
+                android:layout_toRightOf="@+id/teacher_name_pic"
                 android:text="Teacher name"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/ic_dots_teacher_black_24dp"
+                android:id="@+id/dots_teacher_name"/>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
