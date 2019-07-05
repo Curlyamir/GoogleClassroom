@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.net.Uri;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -79,7 +80,7 @@ public class CRAdapters extends RecyclerView.Adapter<CRAdapters.ViewHolder> {
         if (isTeacher)
             viewHolder.menupop.add(0, 0, 0, "Edit");
         else
-            viewHolder.menupop.add(0, 0, 0, "Unenroll");
+            viewHolder.menupop.add(0, 0, 0, "Un-enroll");
 //        if (isTeacher) {
 //            viewHolder.cardsPopUp.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 //                @Override
@@ -136,7 +137,8 @@ public class CRAdapters extends RecyclerView.Adapter<CRAdapters.ViewHolder> {
             bottomView = itemView.findViewById(R.id.bottom_card);
             card_back = itemView.findViewById(R.id.card_view);
             dots = itemView.findViewById(R.id.cards_dot);
-            cardsPopUp = new PopupMenu(context, dots);
+            ContextThemeWrapper cmw = new ContextThemeWrapper(context,R.style.CustomPopupTheme);
+            cardsPopUp = new PopupMenu(cmw, dots);
             menupop = cardsPopUp.getMenu();
         }
     }

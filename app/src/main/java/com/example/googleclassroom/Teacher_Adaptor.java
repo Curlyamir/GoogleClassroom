@@ -17,7 +17,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -43,12 +42,26 @@ public class Teacher_Adaptor extends RecyclerView.Adapter<Teacher_Adaptor.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull final  Teacher_Adaptor.ViewHolder viewHolder, int i) {
-        final User Teacher = teachers_list.get(i);
+        User Teacher = teachers_list.get(i);
+        if (Teacher.username.equals(thisUser.username) && thisClass.teachers.indexOf(thisUser)==0)
+            viewHolder.dots.setVisibility(View.INVISIBLE);
+        if (thisClass.teachers.indexOf(thisUser)!=0)
+            viewHolder.dots.setVisibility(View.INVISIBLE);
         viewHolder.teachername.setText(Teacher.username);
         byte[] imgByte = Teacher.picture;
         Bitmap bmp= BitmapFactory.decodeByteArray(imgByte,0,imgByte.length);
         viewHolder.teacher_img.setImageBitmap(bmp);
-        viewHolder.teacher_back.setOnClickListener(new View.OnClickListener() {
+        viewHolder.dots.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent classIntent = new Intent(context, Classes.class);
+//                classIntent.putExtra("user", myuser);
+//                classIntent.putExtra("aClass", list_items);
+//                context.startActivity(classIntent);
+            }
+
+        });
+        viewHolder.dots.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Intent classIntent = new Intent(context, Classes.class);
@@ -70,9 +83,9 @@ public class Teacher_Adaptor extends RecyclerView.Adapter<Teacher_Adaptor.ViewHo
         CircleImageView teacher_img;
         ImageButton dots;
         CardView teacher_back;
-        PopupMenu cardsPopUp;
         TextView teachername;
-        Menu menupop;
+//        PopupMenu cardsPopUp;
+//        Menu menupop;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

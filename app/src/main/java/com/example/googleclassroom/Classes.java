@@ -95,6 +95,7 @@ public class Classes extends AppCompatActivity {
             infoIntent.putExtra("user",thisUser);
             infoIntent.putExtra("aClass",thisClass);
             startActivity(infoIntent);
+            return true;
         }
         if (item.getItemId() == R.id.teacher_setting_toolbar)
         {
@@ -102,10 +103,11 @@ public class Classes extends AppCompatActivity {
             setIntent.putExtra("user",thisUser);
             setIntent.putExtra("aClass",thisClass);
             startActivity(setIntent);
+            return true;
         }
-//        if (item.getItemId()==R.id.about_us_classes)
+//        if (item.getItemId()==R.id.abo)
 //        {
-//
+//            System.out.println("s");
 //        }
 //        if (item.getItemId() == R.id.notification_classes)
 //        {
