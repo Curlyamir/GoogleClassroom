@@ -9,10 +9,18 @@ import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import java.io.DataInputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.ref.WeakReference;
+import java.net.Socket;
 
 public class Classes extends AppCompatActivity {
     Toolbar toolbar;
@@ -84,10 +92,12 @@ public class Classes extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId()==R.id.refresh_toolbar)
+        if (item.getItemId()==R.id.refresh_classes)
         {
-//            Intent createIntent = new Intent(getApplicationContext(), Create_class.class);
-//            startActivity(createIntent);
+
+            Refresh_classes refresh_classes = new Refresh_classes(Classes.this);
+            refresh_classes.execute("refresh_classes" , thisUser.username , thisClass.name);
+
         }
         if (item.getItemId() == R.id.info_student)
         {
@@ -124,5 +134,63 @@ public class Classes extends AppCompatActivity {
         else
             menu.findItem(R.id.teacher_setting_toolbar).setVisible(false);
         return super.onPrepareOptionsMenu(menu);
+    }
+}
+class Refresh_classes extends AsyncTask<String , Void , String> {
+
+    Socket socket;
+    ObjectOutputStream out;
+    ObjectInputStream in;
+    DataInputStream dataInputStream;
+    boolean result;
+    WeakReference<Classes> activityRefrence;
+    byte[] pic;
+    Class aClass;
+
+    Refresh_classes(Classes context){
+        activityRefrence = new WeakReference<>(context);
+    }
+
+
+    @Override
+    protected String doInBackground(String... strings) {
+
+        try {
+//            Toast.makeText(activityRefrence.get(), "pressed in 1", Toast.LENGTH_SHORT).show();
+            socket = new Socket("10.0.2.2" , 6666);
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
+
+//            Toast.makeText(activityRefrence.get(), "pressed in 2", Toast.LENGTH_SHORT).show();
+
+            out.writeObject(strings);
+            out.flush();
+
+            activityRefrence.get().thisUser = (User) in.readObject();
+            activityRefrence.get().thisClass = (Class) in.readObject();
+
+            out.close();
+            in.close();
+            socket.close();
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        Classes activity = activityRefrence.get();
+
+        if (activity == null || activity.isFinishing()){
+            return;
+        }
+
+        Toast.makeText(activityRefrence.get(), "refreshed", Toast.LENGTH_SHORT).show();
+
+
     }
 }

@@ -3,6 +3,7 @@ package com.example.googleclassroom;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import com.google.android.material.navigation.NavigationView;
@@ -20,7 +21,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.DataInputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.ref.WeakReference;
+import java.net.Socket;
 import java.util.ArrayList;
 
 public class main_page extends AppCompatActivity {
@@ -144,6 +151,13 @@ public class main_page extends AppCompatActivity {
             joinIntent.putExtra("user" , thisUser);
             startActivity(joinIntent);
         }
+        if (item.getItemId() == R.id.refresh_toolbar){
+
+            Refresh_main_page refresh_main_page = new Refresh_main_page(main_page.this);
+            refresh_main_page.execute("refresh_main_page" , thisUser.username);
+
+
+        }
         return super.onOptionsItemSelected(item);
     }
     @Override
@@ -153,5 +167,64 @@ public class main_page extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+}
+
+
+class Refresh_main_page extends AsyncTask<String , Void , String> {
+
+    Socket socket;
+    ObjectOutputStream out;
+    ObjectInputStream in;
+    DataInputStream dataInputStream;
+    boolean result;
+    WeakReference<main_page> activityRefrence;
+    byte[] pic;
+    Class aClass;
+
+    Refresh_main_page(main_page context){
+        activityRefrence = new WeakReference<>(context);
+    }
+
+
+    @Override
+    protected String doInBackground(String... strings) {
+
+        try {
+//            Toast.makeText(activityRefrence.get(), "pressed in 1", Toast.LENGTH_SHORT).show();
+            socket = new Socket("10.0.2.2" , 6666);
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
+
+//            Toast.makeText(activityRefrence.get(), "pressed in 2", Toast.LENGTH_SHORT).show();
+
+            out.writeObject(strings);
+            out.flush();
+
+            activityRefrence.get().thisUser = (User) in.readObject();
+
+            out.close();
+            in.close();
+            socket.close();
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        main_page activity = activityRefrence.get();
+
+        if (activity == null || activity.isFinishing()){
+            return;
+        }
+
+        Toast.makeText(activityRefrence.get(), "refreshed", Toast.LENGTH_SHORT).show();
+
+
     }
 }
