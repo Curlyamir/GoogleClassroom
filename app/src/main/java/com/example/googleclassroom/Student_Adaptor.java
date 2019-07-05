@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -86,7 +87,7 @@ public class Student_Adaptor extends RecyclerView.Adapter<Student_Adaptor.ViewHo
             public boolean onMenuItemClick(MenuItem menuItem) {
                 viewHolder.studentpop.dismiss();
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Sure to remove" + Student.username + "From Class??").setTitle("?");
+                builder.setMessage("Sure to remove " + Student.username + " from class??").setTitle("?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 //                        new Thread(){

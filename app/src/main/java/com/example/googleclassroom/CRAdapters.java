@@ -1,6 +1,8 @@
 package com.example.googleclassroom;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -66,7 +68,7 @@ public class CRAdapters extends RecyclerView.Adapter<CRAdapters.ViewHolder> {
         if (adds.equals("9"))
             viewHolder.card_back.setBackgroundResource(R.drawable.card9);
         String tempstr = null;
-        boolean isTeacher = list_items.findTeacher(myuser);
+        final boolean isTeacher = list_items.findTeacher(myuser);
         if (isTeacher) {
             int tempnum = list_items.getStudentsSize();
             tempstr = Integer.toString(tempnum);
@@ -80,25 +82,7 @@ public class CRAdapters extends RecyclerView.Adapter<CRAdapters.ViewHolder> {
         if (isTeacher)
             viewHolder.menupop.add(0, 0, 0, "Edit");
         else
-            viewHolder.menupop.add(0, 0, 0, "Un-enroll");
-//        if (isTeacher) {
-//            viewHolder.cardsPopUp.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                @Override
-//                public boolean onMenuItemClick(MenuItem item) {
-//                    return false;
-//                }
-//            });
-//
-//        }
-//        else
-//        {
-//            viewHolder.cardsPopUp.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                @Override
-//                public boolean onMenuItemClick(MenuItem item) {
-//                    return false;
-//                }
-//            });
-//        }
+            viewHolder.menupop.add(0, 0, 0, "UnEnroll");
         viewHolder.dots.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +96,22 @@ public class CRAdapters extends RecyclerView.Adapter<CRAdapters.ViewHolder> {
                 classIntent.putExtra("user", myuser);
                 classIntent.putExtra("aClass", list_items);
                 context.startActivity(classIntent);
+            }
+
+        });
+        viewHolder.cardsPopUp.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                viewHolder.cardsPopUp.dismiss();
+                if (isTeacher)
+                {
+                    //ToDO change Intent to classSetting
+                }
+                else
+                {
+                    //ToDo remove student(myuser) from class(list_items)
+                }
+                return false;
             }
 
         });

@@ -79,7 +79,6 @@ public class Teacher_Adaptor extends RecyclerView.Adapter<Teacher_Adaptor.ViewHo
                 viewHolder.popTeacher.dismiss();
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setMessage("Sure to remove" + Teacher.username + "From Class??").setTitle("?");
-
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 //                        new Thread(){
