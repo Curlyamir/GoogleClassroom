@@ -12,6 +12,8 @@ import android.widget.Button;
 
 public class DialogFab extends DialogFragment implements View.OnClickListener
 {
+    User thisUser;
+    Class thisClass;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +26,8 @@ public class DialogFab extends DialogFragment implements View.OnClickListener
         Button assign = view.findViewById(R.id.fab_assign);
         Button topic = view.findViewById(R.id.fab_topic);
         Button exam = view.findViewById(R.id.fab_exam);
+        thisUser = (User) getArguments().getSerializable("user");
+        thisClass = (Class) getArguments().getSerializable("aClass") ;
         assign.setOnClickListener(this);
         topic.setOnClickListener(this);
         exam.setOnClickListener(this);
@@ -43,6 +47,10 @@ public class DialogFab extends DialogFragment implements View.OnClickListener
 
             case R.id.fab_topic:
                 TopicFragment dialog = new TopicFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("user",thisUser);
+                bundle.putSerializable("aClass",thisClass);
+                dialog.setArguments(bundle);
                 dialog.show(getFragmentManager(),"tags2");
                 break;
 //            case R.id.fab_exam

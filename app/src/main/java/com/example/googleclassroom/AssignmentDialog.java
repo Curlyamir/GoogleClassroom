@@ -89,6 +89,10 @@ public class AssignmentDialog extends DialogFragment implements View.OnClickList
         {
             showDialog();
         }
+        if(v.getId() == R.id.assign_dialog_action)
+        {
+            //ToDo create Assigmnet
+        }
     }
     private void updateLabel(EditText temp) {
         String myFormat = "MM/dd/yy";

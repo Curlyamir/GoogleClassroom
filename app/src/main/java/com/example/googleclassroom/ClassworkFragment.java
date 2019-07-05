@@ -43,6 +43,10 @@ public class ClassworkFragment extends Fragment
     public void openDialog()
     {
         DialogFab dialog = new DialogFab();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("user",thisUser);
+        bundle.putSerializable("aClass",thisClass);
+        dialog.setArguments(bundle);
         dialog.show(getFragmentManager(),"tag");
     }
 }

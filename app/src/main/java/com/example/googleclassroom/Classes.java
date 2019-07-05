@@ -84,6 +84,10 @@ public class Classes extends AppCompatActivity {
                     if (item.getItemId() ==R.id.classwork_bottom_nav)
                     {
                         selectedFragment = new ClassworkFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("user",thisUser);
+                        bundle.putSerializable("aClass",thisClass);
+                        selectedFragment.setArguments(bundle);
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_bottom_nav,
                             selectedFragment).commit();
