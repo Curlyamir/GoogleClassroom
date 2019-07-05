@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,20 +22,28 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.ref.WeakReference;
+import java.net.Socket;
 import java.util.ArrayList;
 
 public class CRAdapters extends RecyclerView.Adapter<CRAdapters.ViewHolder> {
     private ArrayList<Class> class_list;
     private Context context;
     private User myuser;
+    main_page thisContext;
 
-    public CRAdapters(ArrayList<Class> class_list, Context context, User myuser) {
+    public CRAdapters(ArrayList<Class> class_list, Context context, User myuser , main_page thisContext) {
         this.class_list = class_list;
         this.context = context;
         this.myuser = myuser;
+        this.thisContext = thisContext;
     }
     @NonNull
     @Override
@@ -110,6 +119,10 @@ public class CRAdapters extends RecyclerView.Adapter<CRAdapters.ViewHolder> {
                 else
                 {
                     //ToDo remove student(myuser) from class(list_items)
+
+                    Student_leave student_leave = new Student_leave(thisContext);
+                    student_leave.execute("student_leave" , myuser.username , list_items.name);
+
                 }
                 return false;
             }
@@ -145,5 +158,65 @@ public class CRAdapters extends RecyclerView.Adapter<CRAdapters.ViewHolder> {
 
     public String getURLForResource(int resourceId) {
         return Uri.parse("android.resource://" + R.class.getPackage().getName() + "/" + resourceId).toString();
+    }
+}
+
+
+class Student_leave extends AsyncTask<String , Void , String> {
+
+    Socket socket;
+    ObjectOutputStream out;
+    ObjectInputStream in;
+    DataInputStream dataInputStream;
+    boolean result;
+    WeakReference<main_page> activityRefrence;
+    byte[] pic;
+    Class aClass;
+
+    Student_leave(main_page context){
+        activityRefrence = new WeakReference<>(context);
+    }
+
+
+    @Override
+    protected String doInBackground(String... strings) {
+
+        try {
+//            Toast.makeText(activityRefrence.get(), "pressed in 1", Toast.LENGTH_SHORT).show();
+            socket = new Socket("10.0.2.2" , 6666);
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
+
+//            Toast.makeText(activityRefrence.get(), "pressed in 2", Toast.LENGTH_SHORT).show();
+
+            out.writeObject(strings);
+            out.flush();
+
+            activityRefrence.get().thisUser = (User) in.readObject();
+
+            out.close();
+            in.close();
+            socket.close();
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        main_page activity = activityRefrence.get();
+
+        if (activity == null || activity.isFinishing()){
+            return;
+        }
+
+        Toast.makeText(activityRefrence.get(), "refreshed", Toast.LENGTH_SHORT).show();
+        activity.adapter = new CRAdapters(activity.thisUser.classes,activity.getApplicationContext(),activity.thisUser,activity);
+        activity.recyclerView.setAdapter(activity.adapter);
+
     }
 }

@@ -36,8 +36,8 @@ public class main_page extends AppCompatActivity {
     private View navHeader;
     private ImageView imgNavHeaderBg, imgProfile;
     private TextView txtName, txtWebsite;
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    RecyclerView recyclerView;
+    RecyclerView.Adapter adapter;
     private Class thisClass;
     Toolbar toolbar;
     User thisUser;
@@ -69,7 +69,7 @@ public class main_page extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycle_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CRAdapters(thisUser.classes,this,thisUser);
+        adapter = new CRAdapters(thisUser.classes,this,thisUser,this);
         recyclerView.setAdapter(adapter);
         setUpNavigationView();
         imgProfile.setImageBitmap(userpic);
