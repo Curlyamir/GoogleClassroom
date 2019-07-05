@@ -1,8 +1,8 @@
 package com.example.googleclassroom;
 
-import androidx.annotation.Nullable;
+//import androidx.annotation.Nullable;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Class implements Serializable {
@@ -17,13 +17,16 @@ public class Class implements Serializable {
     ArrayList<User> students;
     ArrayList<Topic> topics;
 
-    public Class(String name, String description, String roomNumber , String id,int index) {
+
+    public Class(String name, String description, String roomNumber , String id , int index) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.roomNumber = roomNumber;
-        this.teachers =new ArrayList<User>();
-        this.students = new ArrayList<User>();
+        this.teachers = new ArrayList<User>();
+        this.students =  new ArrayList<User>();
+        this.topics = new ArrayList<Topic>();
+        topics.add(new Topic("no topic"));
         this.index = index;
     }
 
@@ -71,12 +74,33 @@ public class Class implements Serializable {
         return this.teachers.contains(myuser);
     }
 
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        return this.id.equals(((Class)obj).id);
-    }
+//    @Override
+//    public boolean equals(@Nullable Object obj) {
+//        return this.id.equals(((Class)obj).id);
+//    }
 
     public ArrayList<User> getTeachers() {
         return teachers;
     }
+
+    //reading
+    static {
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("classes.ser"))) {
+            classes = (ArrayList<Class>) inputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            classes = new ArrayList<>();
+        }
+    }
+
+    //writing
+    static  void save() {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("classes.ser"))) {
+            outputStream.writeObject(classes);
+            System.out.println("wrote");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }
