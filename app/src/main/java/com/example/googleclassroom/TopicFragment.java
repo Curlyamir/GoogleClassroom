@@ -50,8 +50,8 @@ public class TopicFragment extends AppCompatDialogFragment
                     public void onClick(DialogInterface dialog, int which) {
                         //ToDO add topic(EditText) to topic list
 
-                        Add_topic add_topic = new Add_topic(TopicFragment.this);
-                        add_topic.execute("add_topic" , editText.getText().toString() , thisUser.username , thisClass.name);
+//                        Add_topic add_topic = new Add_topic(TopicFragment.this);
+//                        add_topic.execute("add_topic" , editText.getText().toString() , thisUser.username , thisClass.name);
 
                     }
                 });

@@ -26,7 +26,7 @@ public class ClassworkFragment extends Fragment
         thisClass = (Class) getArguments().getSerializable("aClass") ;
         boolean isTeacher = thisClass.findTeacher(thisUser);
         fab = view.findViewById(R.id.fab_classwork);
-        if (isTeacher)
+        if (!isTeacher)
             fab.hide();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -33,8 +34,14 @@ import static android.app.Activity.RESULT_OK;
 
 public class AssignmentDialog extends DialogFragment implements View.OnClickListener {
     Calendar myCalendar;
-    DatePickerDialog.OnDateSetListener date;
+    EditText datetxt;
+    EditText assignTitle;
+    EditText DesAssign;
+    EditText pointPicker;
+    EditText TopicPicker;
+    EditText timetxt;
     TimePickerDialog timePickerDialog;
+    private int mYear, mMonth, mDay, mHour, mMinute;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,32 +51,45 @@ public class AssignmentDialog extends DialogFragment implements View.OnClickList
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.assignment_fullscreen,null);
-        final EditText datetxt = view.findViewById(R.id.date_picker);
-        EditText timetxt = view.findViewById(R.id.time_picker);
+        datetxt = view.findViewById(R.id.date_picker);
+        timetxt = view.findViewById(R.id.time_picker);
+        assignTitle = view.findViewById(R.id.assign_title_dialog);
+        DesAssign = view.findViewById(R.id.assign_description_dialog);
+        pointPicker = view.findViewById(R.id.points_picker);
+        TopicPicker = view.findViewById(R.id.topic_picker);
         ImageButton attachbtn = view.findViewById(R.id.assign_dialog_attach);
         myCalendar = Calendar.getInstance();
-        date = new DatePickerDialog.OnDateSetListener() {
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel(datetxt);
-            }
-        };
         datetxt.setOnClickListener(this);
         timetxt.setOnClickListener(this);
         attachbtn.setOnClickListener(this);
+        assignTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                //ToDO check assignment title
+            }
+        });
         return view;
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.date_picker) {
-            new DatePickerDialog(getActivity(), date, myCalendar
-                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                    myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            final Calendar c = Calendar.getInstance();
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                    new DatePickerDialog.OnDateSetListener() {
+
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                              int monthOfYear, int dayOfMonth) {
+
+                            datetxt.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+                        }
+                    }, mYear, mMonth, mDay);
+            datePickerDialog.show();
         }
         if (v.getId() == R.id.time_picker)
         {
@@ -92,6 +112,10 @@ public class AssignmentDialog extends DialogFragment implements View.OnClickList
         if(v.getId() == R.id.assign_dialog_action)
         {
             //ToDo create Assigmnet
+        }
+        if (v.getId() == R.id.assign_dialog_close)
+        {
+            dismiss();
         }
     }
     private void updateLabel(EditText temp) {

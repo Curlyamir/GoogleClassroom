@@ -79,7 +79,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:layout_marginTop="15dp"/>
                 <EditText
-                    android:id="@+id/assign_title"
+                    android:id="@+id/assign_title_dialog"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
                     android:layout_marginStart="16dp"
@@ -99,7 +99,7 @@
                 android:layout_marginTop="15dp"/>
 
             <EditText
-                android:id="@+id/assign_discription"
+                android:id="@+id/assign_description_dialog"
                 android:layout_width="match_parent"
                 android:layout_height="47dp"
                 android:layout_marginStart="16dp"
