@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 public class PeopleFragment extends Fragment {
-    private User thisUser;
-    private Class thisClass;
+    User thisUser;
+    Class thisClass;
     RecyclerView recyclerViewStudent;
     RecyclerView recyclerViewTeacher;
     RecyclerView.Adapter adapterstudent;
@@ -35,9 +35,9 @@ public class PeopleFragment extends Fragment {
         recyclerViewStudent.setHasFixedSize(true);
         recyclerViewTeacher.setLayoutManager(llm2);
         recyclerViewTeacher.setHasFixedSize(true);
-        adapterstudent = new Student_Adaptor(thisClass.students,getContext(),thisUser,thisClass);
+        adapterstudent = new Student_Adaptor(thisClass.students,getContext(),thisUser,thisClass,this);
         recyclerViewStudent.setAdapter(adapterstudent);
-        adapterteacher = new Teacher_Adaptor(thisClass.teachers,getContext(),thisUser,thisClass);
+        adapterteacher = new Teacher_Adaptor(thisClass.teachers,getContext(),thisUser,thisClass,this);
         recyclerViewTeacher.setAdapter(adapterteacher);
         return view;
     }

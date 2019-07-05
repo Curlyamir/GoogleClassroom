@@ -1,11 +1,13 @@
 package com.example.googleclassroom;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,11 +17,17 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.DataInputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.ref.WeakReference;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -28,14 +36,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Student_Adaptor extends RecyclerView.Adapter<Student_Adaptor.ViewHolder> {
     private ArrayList<User> students_list;
     private Context context;
-    private Class thisClass;
-    private User thisUser;
-    public Student_Adaptor(ArrayList<User> Students_list, Context context, User myuser,Class thisClass)
+    Class thisClass;
+    User thisUser;
+    PeopleFragment thisContext;
+    public Student_Adaptor(ArrayList<User> Students_list, Context context, User myuser, Class thisClass,PeopleFragment activity)
     {
         this.students_list = Students_list;
         this.context = context;
         this.thisUser = myuser;
         this.thisClass = thisClass;
+        this.thisContext = activity;
     }
     @NonNull
     @Override
@@ -104,6 +114,11 @@ public class Student_Adaptor extends RecyclerView.Adapter<Student_Adaptor.ViewHo
 //                        }.start();
 //                        RefreshPOE refreshPOE = new RefreshPOE(activity);
 //                        refreshPOE.execute("RefreshCLW", user.username, user.password, myclass.code) ;
+
+                        Student_remove student_remove = new Student_remove(thisContext);
+                        student_remove.execute("student_remove" , Student.username , thisClass.name);
+
+
                     }
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -145,5 +160,67 @@ public class Student_Adaptor extends RecyclerView.Adapter<Student_Adaptor.ViewHo
             studentpop = new PopupMenu(cmw, dots);
             menupop = studentpop.getMenu();
         }
+    }
+}
+
+class Student_remove extends AsyncTask<String , Void , String> {
+
+    Socket socket;
+    ObjectOutputStream out;
+    ObjectInputStream in;
+    DataInputStream dataInputStream;
+    boolean result;
+    WeakReference<PeopleFragment> activityRefrence;
+    byte[] pic;
+    Class aClass;
+
+    Student_remove(PeopleFragment context){
+        activityRefrence = new WeakReference<>(context);
+    }
+
+
+    @Override
+    protected String doInBackground(String... strings) {
+
+        try {
+//            Toast.makeText(activityRefrence.get(), "pressed in 1", Toast.LENGTH_SHORT).show();
+            socket = new Socket("10.0.2.2" , 6666);
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
+
+//            Toast.makeText(activityRefrence.get(), "pressed in 2", Toast.LENGTH_SHORT).show();
+
+            out.writeObject(strings);
+            out.flush();
+
+            activityRefrence.get().thisUser = (User) in.readObject();
+            activityRefrence.get().thisClass = (Class) in.readObject();
+
+            out.close();
+            in.close();
+            socket.close();
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        PeopleFragment activity = activityRefrence.get();
+
+//        if (activity == null || activity.isFinishing()){
+//            return;
+//        }
+
+        Toast.makeText(activity.getContext(), "student remove", Toast.LENGTH_SHORT).show();
+        activity.adapterstudent = new Student_Adaptor(activity.thisClass.students,activity.getContext(),activity.thisUser,activity.thisClass,activity);
+        activity.recyclerViewStudent.setAdapter(activity.adapterstudent);
+        activity.adapterteacher = new Teacher_Adaptor(activity.thisClass.teachers,activity.getContext(),activity.thisUser,activity.thisClass,activity);
+        activity.recyclerViewTeacher.setAdapter(activity.adapterteacher);
+
     }
 }
