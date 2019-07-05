@@ -72,6 +72,10 @@ public class Create_class extends AppCompatActivity {
         if (item.getItemId() == R.id.cancle_join_class)
         {
 
+            Intent intent = new Intent(getApplicationContext(), main_page.class);
+            intent.putExtra("user" , thisUser);
+            getApplicationContext().startActivity(intent);
+
         }
         if (item.getItemId() == R.id.create_create_class)
         {
@@ -279,7 +283,6 @@ class CreateClass_roomnumber_check extends AsyncTask<String , Void , String> {
         }
 
         if (!result) {
-            System.out.println("injaaaaaaaaaa");
             activity.roomNumber.setError("room number is already taken!");
         }
 

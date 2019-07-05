@@ -42,6 +42,10 @@ public class Join_Class extends AppCompatActivity {
         if (item.getItemId() == R.id.cancle_create_class)
         {
 
+            Intent intent = new Intent(getApplicationContext(), main_page.class);
+            intent.putExtra("user" , thisUser);
+            getApplicationContext().startActivity(intent);
+
         }
         if (item.getItemId() == R.id.join_join_class){
             JoinClass join = new JoinClass(Join_Class.this);

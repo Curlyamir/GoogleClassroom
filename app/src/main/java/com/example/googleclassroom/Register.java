@@ -72,8 +72,11 @@ public class Register extends AppCompatActivity {
 
                 System.out.println("just pressed");
 
+                if (username.getText().toString().trim().length() == 0 || pass1.getText().toString().trim().length() == 0 || pass2.getText().toString().trim().length() == 0){
+                    Toast.makeText(getApplicationContext(), "all fields should be filled !", Toast.LENGTH_LONG).show();
+                }
 
-                if (profile_pic.getDrawable() !=null) {
+                else if (profile_pic.getDrawable() !=null) {
                     System.out.println("first if start");
                     Bitmap bmp = ((BitmapDrawable) profile_pic.getDrawable()).getBitmap();
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
