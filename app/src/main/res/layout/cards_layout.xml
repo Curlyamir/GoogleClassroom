@@ -16,14 +16,17 @@
                 android:layout_marginTop="30dp"
                 android:background="@drawable/card1"
                 android:id="@+id/card_view"/>
+
             <ImageButton
                 android:id="@+id/cards_dot"
+                style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:background="@drawable/ic_more_vert_white_24dp"
-                android:layout_marginTop="40dp"
                 android:layout_alignParentRight="true"
-                android:backgroundTint="@color/TextonPrimary"/>
+                android:layout_marginTop="40dp"
+                android:adjustViewBounds="false"
+                android:background="@drawable/ic_more_vert_white_24dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Light" />
 
             <TextView
                 android:id="@+id/header_card"

@@ -10,13 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 public class PeopleFragment extends Fragment {
     private User thisUser;
     private Class thisClass;
     RecyclerView recyclerViewStudent;
     RecyclerView recyclerViewTeacher;
-    RecyclerView.Adapter adapter;
+    RecyclerView.Adapter adapterstudent;
+    RecyclerView.Adapter adapterteacher;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -25,14 +27,18 @@ public class PeopleFragment extends Fragment {
         thisClass = (Class) getArguments().getSerializable("aClass") ;
         recyclerViewTeacher = view.findViewById(R.id.teachers_name_recView);
         recyclerViewStudent = view.findViewById(R.id.students_name_recView);
+        LinearLayoutManager llm1 = new LinearLayoutManager(getContext());
+        llm1.setOrientation(LinearLayoutManager.HORIZONTAL);
+        LinearLayoutManager llm2 = new LinearLayoutManager(getContext());
+        llm2.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerViewStudent.setLayoutManager(llm1);
         recyclerViewStudent.setHasFixedSize(true);
-        recyclerViewStudent.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewTeacher.setLayoutManager(llm2);
         recyclerViewTeacher.setHasFixedSize(true);
-        recyclerViewTeacher.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new Student_Adaptor(thisClass.students,getContext(),thisUser,thisClass);
-        recyclerViewStudent.setAdapter(adapter);
-        adapter = new Teacher_Adaptor(thisClass.teachers,getContext(),thisUser,thisClass);
-        recyclerViewTeacher.setAdapter(adapter);
-        return inflater.inflate(R.layout.fragment_people,container,false);
+        adapterstudent = new Student_Adaptor(thisClass.students,getContext(),thisUser,thisClass);
+        recyclerViewStudent.setAdapter(adapterstudent);
+        adapterteacher = new Teacher_Adaptor(thisClass.teachers,getContext(),thisUser,thisClass);
+        recyclerViewTeacher.setAdapter(adapterteacher);
+        return view;
     }
 }

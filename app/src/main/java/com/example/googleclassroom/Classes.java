@@ -27,6 +27,7 @@ public class Classes extends AppCompatActivity {
     User thisUser;
     Class thisClass;
     boolean isTeacher = true;
+    Fragment selectedFragment = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,12 @@ public class Classes extends AppCompatActivity {
         isTeacher = thisClass.findTeacher(thisUser);
         BottomNavigationView bottom_nav = findViewById(R.id.bottom_nav_activity);
         bottom_nav.setOnNavigationItemSelectedListener(navListener);
+        if (selectedFragment == null)
+        {
+            selectedFragment = new ClassworkFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_bottom_nav,
+                    selectedFragment).commit();
+        }
         //onBackPressed();
     }
 
@@ -66,10 +73,8 @@ public class Classes extends AppCompatActivity {
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectedFragment = null;
                     if (item.getItemId() == R.id.people_bottom_nav)
                     {
-                        selectedFragment = new PeopleFragment();
                         selectedFragment = new PeopleFragment();
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("user",thisUser);
@@ -105,6 +110,7 @@ public class Classes extends AppCompatActivity {
             infoIntent.putExtra("user",thisUser);
             infoIntent.putExtra("aClass",thisClass);
             startActivity(infoIntent);
+            return true;
         }
         if (item.getItemId() == R.id.teacher_setting_toolbar)
         {
@@ -112,19 +118,24 @@ public class Classes extends AppCompatActivity {
             setIntent.putExtra("user",thisUser);
             setIntent.putExtra("aClass",thisClass);
             startActivity(setIntent);
+            return true;
         }
-//        if (item.getItemId()==R.id.about_us_classes)
+        if (item.getItemId() == R.id.about_us_classes)
+        {
+
+        }
+//        if (item.getItemId()==R.id.abo)
 //        {
-//
+//            System.out.println("s");
 //        }
-//        if (item.getItemId() == R.id.notification_classes)
-//        {
-//
-//        }
-//        if (item.getItemId() == R.id.main_page_classes)
-//        {
-//
-//        }
+        if (item.getItemId() == R.id.notification_classes)
+        {
+
+        }
+        if (item.getItemId() == R.id.main_page_classes)
+        {
+
+        }
         return super.onOptionsItemSelected(item);
     }
     @Override
