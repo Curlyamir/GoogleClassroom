@@ -44,7 +44,6 @@ public class main_page extends AppCompatActivity {
     private String[] activityTitles;
     public static int navItemIndex = 0;
     private Handler mHandler;
-    private ArrayList<Classrooms> class_items;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
