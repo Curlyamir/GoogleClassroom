@@ -42,13 +42,19 @@ public class Create_class extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
+                CreateClass_name_check createClass_name_check = new CreateClass_name_check(Create_class.this);
 
+                createClass_name_check.execute("createclass_name_check" , className.getText().toString());
 
             }
         });
         roomNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+
+                CreateClass_roomnumber_check createClass_roomnumber_check = new CreateClass_roomnumber_check(Create_class.this);
+
+                createClass_roomnumber_check.execute("createclass_roomnumber_check" , roomNumber.getText().toString());
 
             }
         });
@@ -153,6 +159,128 @@ class CreateClass extends AsyncTask<String , Void , String> {
         }
         else {
             Toast.makeText(activity, "ah", Toast.LENGTH_LONG).show();
+        }
+
+    }
+}
+
+
+class CreateClass_name_check extends AsyncTask<String , Void , String> {
+
+    Socket socket;
+    ObjectOutputStream out;
+    ObjectInputStream in;
+    DataInputStream dataInputStream;
+    boolean result;
+    WeakReference<Create_class> activityRefrence;
+    byte[] pic;
+    Class aClass;
+
+    CreateClass_name_check(Create_class context){
+        activityRefrence = new WeakReference<>(context);
+    }
+
+
+    @Override
+    protected String doInBackground(String... strings) {
+
+        try {
+//            Toast.makeText(activityRefrence.get(), "pressed in 1", Toast.LENGTH_SHORT).show();
+            socket = new Socket("10.0.2.2" , 6666);
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
+
+//            Toast.makeText(activityRefrence.get(), "pressed in 2", Toast.LENGTH_SHORT).show();
+
+            out.writeObject(strings);
+            out.flush();
+
+            result = in.readBoolean();
+
+
+            out.close();
+            in.close();
+            socket.close();
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        Create_class activity = activityRefrence.get();
+
+        if (activity == null || activity.isFinishing()){
+            return;
+        }
+
+        if (!result) {
+            activity.className.setError("class name is already taken!");
+        }
+
+    }
+}
+
+class CreateClass_roomnumber_check extends AsyncTask<String , Void , String> {
+
+    Socket socket;
+    ObjectOutputStream out;
+    ObjectInputStream in;
+    DataInputStream dataInputStream;
+    boolean result;
+    WeakReference<Create_class> activityRefrence;
+    byte[] pic;
+    Class aClass;
+
+    CreateClass_roomnumber_check(Create_class context){
+        activityRefrence = new WeakReference<>(context);
+    }
+
+
+    @Override
+    protected String doInBackground(String... strings) {
+
+        try {
+//            Toast.makeText(activityRefrence.get(), "pressed in 1", Toast.LENGTH_SHORT).show();
+            socket = new Socket("10.0.2.2" , 6666);
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
+
+//            Toast.makeText(activityRefrence.get(), "pressed in 2", Toast.LENGTH_SHORT).show();
+
+            out.writeObject(strings);
+            out.flush();
+
+            result = in.readBoolean();
+
+
+            out.close();
+            in.close();
+            socket.close();
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        Create_class activity = activityRefrence.get();
+
+        if (activity == null || activity.isFinishing()){
+            return;
+        }
+
+        if (!result) {
+            System.out.println("injaaaaaaaaaa");
+            activity.roomNumber.setError("room number is already taken!");
         }
 
     }

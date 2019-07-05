@@ -58,7 +58,7 @@ class JoinClass extends AsyncTask<String , Void , String> {
     ObjectOutputStream out;
     ObjectInputStream in;
     DataInputStream dataInputStream;
-    boolean result;
+    int result;
     WeakReference<Join_Class> activityRefrence;
     byte[] pic;
     Class aClass;
@@ -82,9 +82,9 @@ class JoinClass extends AsyncTask<String , Void , String> {
             out.writeObject(strings);
             out.flush();
 
-            result = in.readBoolean();
+            result = in.readInt();
 
-            if (result) {
+            if (result == 1) {
                 aClass = (Class) in.readObject();
                 activityRefrence.get().thisUser = (User) in.readObject();
             }
@@ -109,15 +109,21 @@ class JoinClass extends AsyncTask<String , Void , String> {
             return;
         }
 
-        if (result){
-            Toast.makeText(activity, "Class Created", Toast.LENGTH_LONG).show();
+        if (result == 1){
+            Toast.makeText(activity, "Class joined", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(activity, Classes.class);
             intent.putExtra("aClass" , aClass);
             intent.putExtra("user" , activity.thisUser);
             activity.startActivity(intent);
         }
-        else {
-            Toast.makeText(activity, "", Toast.LENGTH_LONG).show();
+        else if (result == 0) {
+            Toast.makeText(activity, "class could not found!", Toast.LENGTH_LONG).show();
+        }
+        else if (result == 2){
+            Toast.makeText(activity, "teacher can't join his class!", Toast.LENGTH_LONG).show();
+        }
+        else if (result == 3) {
+            Toast.makeText(activity, "you have already joined this class!", Toast.LENGTH_LONG).show();
         }
 
     }

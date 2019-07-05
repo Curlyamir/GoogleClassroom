@@ -162,7 +162,7 @@ class Signin_check extends AsyncTask<String , Void , String> {
         }
 
         if (result){
-            Toast.makeText(activity, "Your Logged in Successfully", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, "You're Logged in Successfully", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(activity, main_page.class);
             intent.putExtra("user" , user);
             activity.startActivity(intent);
