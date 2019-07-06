@@ -88,21 +88,6 @@ public class main_page extends AppCompatActivity {
     }
 
     private void loadNavHeader() {
-//        txtName.setText("getName");
-//        txtWebsite.setText("nake");
-
-//        Glide.with(this).load(urlNavHeaderBg)
-//                .crossFade()
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .into(imgNavHeaderBg);
-//
-//        // Loading profile image
-//        Glide.with(this).load(urlProfileImg)
-//                .crossFade()
-//                .thumbnail(0.5f)
-//                .bitmapTransform(new CircleTransform(this))
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .into(imgProfile);
         navigationView.getMenu().getItem(3).setActionView(R.layout.menu_dot);
     }
     private void setUpNavigationView() {
@@ -119,6 +104,7 @@ public class main_page extends AppCompatActivity {
                         break;
                     case R.id.nav_about_us:
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new AboutUSFragment()).commit();
+                        getSupportActionBar().setTitle("About Us");
                         break;
                     case R.id.nav_classes_home:
                         Intent tempInt = new Intent(getApplicationContext(), main_page.class);

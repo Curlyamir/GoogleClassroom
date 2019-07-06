@@ -231,10 +231,6 @@ public class Register extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-
-                        //to know about the selected image width and height
-                        Toast.makeText(this, profile_pic.getDrawable().getIntrinsicWidth() + " & " + profile_pic.getDrawable().getIntrinsicHeight(), Toast.LENGTH_SHORT).show();
-
                     } else {
                         Toast.makeText(this, "No image picked!", Toast.LENGTH_LONG).show();
                     }

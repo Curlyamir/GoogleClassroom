@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".Settings_class"
     android:fitsSystemWindows="true">
 
     <androidx.cardview.widget.CardView
@@ -54,7 +53,8 @@
                 android:padding="2dp"
                 android:background="@drawable/button_save"
                 android:text="Save"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false"
+                android:textColor="@color/TextonPrimary"/>
 
         </RelativeLayout>
 
@@ -180,7 +180,21 @@
                 android:textColor="@color/TextOnS"
                 android:textSize="16sp" />
 
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="75dp"
+                android:fontFamily="sans-serif"
+                android:text="Only Teachers can post comment"
+                android:textColor="@color/colorPrimaryDark"
+                android:textOff="Only Teachers can post comment"
+                android:textOn="Teacher and Students can post comment"
+                android:textSize="18sp" />
+
         </RelativeLayout>
+
 
     </LinearLayout>
 

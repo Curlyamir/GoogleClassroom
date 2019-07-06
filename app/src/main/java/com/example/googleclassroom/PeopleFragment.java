@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 public class PeopleFragment extends Fragment {
@@ -19,6 +21,8 @@ public class PeopleFragment extends Fragment {
     RecyclerView recyclerViewTeacher;
     RecyclerView.Adapter adapterstudent;
     RecyclerView.Adapter adapterteacher;
+    ImageButton addStu;
+    ImageButton addTeach;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -27,10 +31,13 @@ public class PeopleFragment extends Fragment {
         thisClass = (Class) getArguments().getSerializable("aClass") ;
         recyclerViewTeacher = view.findViewById(R.id.teachers_name_recView);
         recyclerViewStudent = view.findViewById(R.id.students_name_recView);
+        addStu = view.findViewById(R.id.add_students);
+        addTeach = view.findViewById(R.id.add_teachers);
         LinearLayoutManager llm1 = new LinearLayoutManager(getContext());
         llm1.setOrientation(LinearLayoutManager.HORIZONTAL);
         LinearLayoutManager llm2 = new LinearLayoutManager(getContext());
         llm2.setOrientation(LinearLayoutManager.HORIZONTAL);
+        boolean isTeacher =thisClass.findTeacher(thisUser);
         recyclerViewStudent.setLayoutManager(llm1);
         recyclerViewStudent.setHasFixedSize(true);
         recyclerViewTeacher.setLayoutManager(llm2);
@@ -39,6 +46,17 @@ public class PeopleFragment extends Fragment {
         recyclerViewStudent.setAdapter(adapterstudent);
         adapterteacher = new Teacher_Adaptor(thisClass.teachers,getContext(),thisUser,thisClass,this);
         recyclerViewTeacher.setAdapter(adapterteacher);
+        if (!isTeacher)
+        {
+            addTeach.setVisibility(View.INVISIBLE);
+            addStu.setVisibility(View.INVISIBLE);
+        }
+        addStu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return view;
     }
 }

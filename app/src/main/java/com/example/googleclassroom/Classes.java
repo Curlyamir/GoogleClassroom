@@ -35,9 +35,8 @@ public class Classes extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar_classes);
         thisUser = (User) getIntent().getSerializableExtra("user");
         thisClass = (Class) getIntent().getSerializableExtra("aClass");
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(thisClass.name);
         isTeacher = thisClass.findTeacher(thisUser);
+        setToolbar();
         BottomNavigationView bottom_nav = findViewById(R.id.bottom_nav_activity);
         bottom_nav.setOnNavigationItemSelectedListener(navListener);
         if (selectedFragment == null)
@@ -52,7 +51,11 @@ public class Classes extends AppCompatActivity {
         }
         //onBackPressed();
     }
-
+    public void setToolbar()
+    {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(thisClass.name);
+    }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK)
@@ -107,35 +110,33 @@ public class Classes extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==R.id.refresh_classes)
         {
-
             Refresh_classes refresh_classes = new Refresh_classes(Classes.this);
             refresh_classes.execute("refresh_classes" , thisUser.username , thisClass.name);
 
         }
         if (item.getItemId() == R.id.info_student)
         {
-            Intent infoIntent = new Intent(getApplicationContext(),Class_info.class);
-            infoIntent.putExtra("user",thisUser);
-            infoIntent.putExtra("aClass",thisClass);
-            startActivity(infoIntent);
+            Class_Info_Dialog dialog = new Class_Info_Dialog(this);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("user", thisUser);
+            bundle.putSerializable("aClass", thisClass);
+            dialog.setArguments(bundle);
+            dialog.show(getSupportFragmentManager(), "tags2");
             return true;
         }
         if (item.getItemId() == R.id.teacher_setting_toolbar)
         {
-            Intent setIntent = new Intent(getApplicationContext(), Settings_class.class);
-            setIntent.putExtra("user",thisUser);
-            setIntent.putExtra("aClass",thisClass);
-            startActivity(setIntent);
+            Settings_Full_Dialog dialog = new Settings_Full_Dialog(this);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("user", thisUser);
+            bundle.putSerializable("aClass", thisClass);
+            dialog.setArguments(bundle);
+            dialog.show(getSupportFragmentManager(), "tags2");
             return true;
         }
-        if (item.getItemId() == R.id.about_us_classes)
-        {
+        if (item.getItemId() == R.id.about_us_classes) {
 
         }
-//        if (item.getItemId()==R.id.abo)
-//        {
-//            System.out.println("s");
-//        }
         if (item.getItemId() == R.id.notification_classes)
         {
 
@@ -209,8 +210,8 @@ class Refresh_classes extends AsyncTask<String , Void , String> {
             return;
         }
 
-        Toast.makeText(activityRefrence.get(), "refreshed", Toast.LENGTH_SHORT).show();
-
+        //Toast.makeText(activityRefrence.get(), "refreshed", Toast.LENGTH_SHORT).show();
+        activity.setToolbar();
 
     }
 }

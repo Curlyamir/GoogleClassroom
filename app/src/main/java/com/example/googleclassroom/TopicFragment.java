@@ -32,6 +32,11 @@ public class TopicFragment extends AppCompatDialogFragment
     EditText editText;
     User thisUser;
     Class thisClass;
+    ClassworkFragment fragment;
+    TopicFragment(ClassworkFragment fragment)
+    {
+        this.fragment = fragment;
+    }
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         thisUser = (User) getArguments().getSerializable("user");
@@ -42,7 +47,7 @@ public class TopicFragment extends AppCompatDialogFragment
         builder.setView(view).setNegativeButton("cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //ToDO go back to main page
+                dismiss();
             }
         })
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
@@ -52,7 +57,9 @@ public class TopicFragment extends AppCompatDialogFragment
 
                         Add_topic add_topic = new Add_topic(TopicFragment.this);
                         add_topic.execute("add_topic" , editText.getText().toString() , thisUser.username , thisClass.name);
-
+                        Refresh_classwork ref = new Refresh_classwork(fragment);
+                        ref.execute("refresh_classes" , thisUser.username , thisClass.name);
+                        dialog.dismiss();
                     }
                 });
         editText = view.findViewById(R.id.topic_text);
@@ -101,7 +108,8 @@ class Add_topic extends AsyncTask<String , Void , String> {
             out.writeObject(strings);
             out.flush();
 
-
+            activityRefrence.get().thisUser = (User) in.readObject();
+            activityRefrence.get().thisClass = (Class) in.readObject();
 
             out.close();
             in.close();
@@ -118,10 +126,6 @@ class Add_topic extends AsyncTask<String , Void , String> {
     @Override
     protected void onPostExecute(String s) {
         TopicFragment activity = activityRefrence.get();
-
-//        if (activity == null || activity.isFinishing()){
-//            return;
-//        }
 
 
     }
