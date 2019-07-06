@@ -62,7 +62,10 @@ public class TopicFragment extends AppCompatDialogFragment
                 //ToDo check topic (EditText) already exists or not
 
 
-                //Todo if exists use setError for Edittext (topic already exists)
+                Topic_check topic_check = new Topic_check(TopicFragment.this);
+                topic_check.execute("topic_check" , editText.getText().toString() , thisUser.username , thisClass.name);
+
+                //ToDo if exists use setError for Edittext (topic already exists)
             }
         });
         return builder.create();
@@ -124,3 +127,60 @@ class Add_topic extends AsyncTask<String , Void , String> {
     }
 }
 
+class Topic_check extends AsyncTask<String , Void , String> {
+
+    Socket socket;
+    ObjectOutputStream out;
+    ObjectInputStream in;
+    DataInputStream dataInputStream;
+    boolean result;
+    WeakReference<TopicFragment> activityRefrence;
+    User user;
+
+    Topic_check(TopicFragment context){
+        activityRefrence = new WeakReference<>(context);
+    }
+
+
+    @Override
+    protected String doInBackground(String... strings) {
+
+        try {
+//            Toast.makeText(activityRefrence.get(), "pressed in 1", Toast.LENGTH_SHORT).show();
+            socket = new Socket("10.0.2.2" , 6666);
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
+
+//            Toast.makeText(activityRefrence.get(), "pressed in 2", Toast.LENGTH_SHORT).show();
+
+            out.writeObject(strings);
+            out.flush();
+
+            result = in.readBoolean();
+
+            out.close();
+            in.close();
+            socket.close();
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        TopicFragment activity = activityRefrence.get();
+
+//        if (activity == null || activity.isFinishing()){
+//            return;
+//        }
+
+        if (!result){
+            activityRefrence.get().editText.setError("topic already exists!");
+        }
+
+    }
+}
