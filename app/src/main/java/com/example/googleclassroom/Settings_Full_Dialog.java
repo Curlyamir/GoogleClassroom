@@ -91,7 +91,7 @@ class Update_Class extends AsyncTask<String, Void, String> {
     boolean result;
     WeakReference<Settings_Full_Dialog> activityRefrence;
     User user;
-
+    Class thisClass;
     Update_Class(Settings_Full_Dialog context) {
         activityRefrence = new WeakReference<>(context);
     }
@@ -107,8 +107,8 @@ class Update_Class extends AsyncTask<String, Void, String> {
 
             out.writeObject(strings);
             out.flush();
-            activityRefrence.get().thisUser = (User) in.readObject();
-            activityRefrence.get().thisClass = (Class) in.readObject();
+            user = (User) in.readObject();
+            thisClass = (Class) in.readObject();
 
             out.close();
             in.close();
@@ -124,8 +124,10 @@ class Update_Class extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
+        super.onPostExecute(s);
         Settings_Full_Dialog activity = activityRefrence.get();
-
+        activity.thisUser = user;
+        activity.thisClass = thisClass;
         Refresh_classes rfc = new Refresh_classes(activity.fragment);
         rfc.execute("refresh_classes", activity.thisUser.username, activity.thisClass.name);
     }

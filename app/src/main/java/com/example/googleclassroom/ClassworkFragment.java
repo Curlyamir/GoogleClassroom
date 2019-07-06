@@ -26,6 +26,11 @@ public class ClassworkFragment extends Fragment
     Class thisClass;
     FloatingActionButton fab;
     RecyclerView topics_list ;
+    Classes fragment;
+    ClassworkFragment(Classes fragment)
+    {
+        this.fragment = fragment;
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,7 +66,7 @@ public class ClassworkFragment extends Fragment
     void Create_adptors()
     {
         int temp = thisUser.findClass(thisClass);
-        TopicAss_Adaptor adapter = new TopicAss_Adaptor(this.thisClass,this.thisUser,thisUser.classes.get(temp).topics,this) ;
+        TopicAss_Adaptor adapter = new TopicAss_Adaptor(thisClass,thisUser,thisUser.classes.get(temp).topics,this) ;
         topics_list.setAdapter(adapter);
     }
 }
@@ -75,7 +80,7 @@ class Refresh_classwork extends AsyncTask<String , Void , String> {
     WeakReference<ClassworkFragment> activityRefrence;
     byte[] pic;
     Class aClass;
-
+    User user;
     Refresh_classwork(ClassworkFragment context){
         activityRefrence = new WeakReference<>(context);
     }
@@ -95,8 +100,8 @@ class Refresh_classwork extends AsyncTask<String , Void , String> {
             out.writeObject(strings);
             out.flush();
 
-            activityRefrence.get().thisUser = (User) in.readObject();
-            activityRefrence.get().thisClass = (Class) in.readObject();
+           user = (User) in.readObject();
+            aClass= (Class) in.readObject();
 
             out.close();
             in.close();
@@ -112,9 +117,12 @@ class Refresh_classwork extends AsyncTask<String , Void , String> {
 
     @Override
     protected void onPostExecute(String s) {
+        super.onPostExecute(s);
         ClassworkFragment activity = activityRefrence.get();
+        activity.thisClass = aClass;
+        activity.thisUser = user;
         activity.Create_adptors();
-
-
+        Refresh_classes rc = new Refresh_classes(activity.fragment);
+        rc.execute("refresh_classes" , activity.thisUser.username , activity.thisClass.name);
     }
 }

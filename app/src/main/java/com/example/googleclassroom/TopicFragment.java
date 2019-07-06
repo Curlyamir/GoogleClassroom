@@ -56,6 +56,8 @@ public class TopicFragment extends AppCompatDialogFragment
                         //ToDO add topic(EditText) to topic list
 
                         Add_topic add_topic = new Add_topic(TopicFragment.this);
+                        if (editText.getText().toString().length()==0)
+                            editText.setText("no topic");
                         add_topic.execute("add_topic" , editText.getText().toString() , thisUser.username , thisClass.name);
                         dialog.dismiss();
                     }
@@ -86,7 +88,7 @@ class Add_topic extends AsyncTask<String , Void , String> {
     boolean result;
     WeakReference<TopicFragment> activityRefrence;
     User user;
-
+    Class aClass;
     Add_topic(TopicFragment context){
         activityRefrence = new WeakReference<>(context);
     }
@@ -106,8 +108,8 @@ class Add_topic extends AsyncTask<String , Void , String> {
             out.writeObject(strings);
             out.flush();
 
-            activityRefrence.get().thisUser = (User) in.readObject();
-            activityRefrence.get().thisClass = (Class) in.readObject();
+           user = (User) in.readObject();
+           aClass= (Class) in.readObject();
 
             out.close();
             in.close();
@@ -123,7 +125,10 @@ class Add_topic extends AsyncTask<String , Void , String> {
 
     @Override
     protected void onPostExecute(String s) {
+        super.onPostExecute(s);
         TopicFragment activity = activityRefrence.get();
+        activity.thisClass = aClass;
+        activity.thisUser = user;
         Refresh_classwork ref = new Refresh_classwork(activity.fragment);
         ref.execute("refresh_classes" , activity.thisUser.username , activity.thisClass.name);
     }
@@ -173,10 +178,11 @@ class Topic_check extends AsyncTask<String , Void , String> {
 
     @Override
     protected void onPostExecute(String s) {
+        super.onPostExecute(s);
         TopicFragment activity = activityRefrence.get();
 
         if (!result){
-            activityRefrence.get().editText.setError("topic already exists!");
+           activity.editText.setError("topic already exists!");
         }
         else
         {

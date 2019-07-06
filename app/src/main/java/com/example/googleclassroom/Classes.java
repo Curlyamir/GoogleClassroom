@@ -41,7 +41,7 @@ public class Classes extends AppCompatActivity {
         bottom_nav.setOnNavigationItemSelectedListener(navListener);
         if (selectedFragment == null)
         {
-            selectedFragment = new ClassworkFragment();
+            selectedFragment = new ClassworkFragment(this);
             Bundle bundle = new Bundle();
             bundle.putSerializable("user",thisUser);
             bundle.putSerializable("aClass",thisClass);
@@ -90,7 +90,7 @@ public class Classes extends AppCompatActivity {
                     }
                     if (item.getItemId() ==R.id.classwork_bottom_nav)
                     {
-                        selectedFragment = new ClassworkFragment();
+                        selectedFragment = new ClassworkFragment(Classes.this);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("user",thisUser);
                         bundle.putSerializable("aClass",thisClass);
@@ -167,7 +167,7 @@ class Refresh_classes extends AsyncTask<String , Void , String> {
     WeakReference<Classes> activityRefrence;
     byte[] pic;
     Class aClass;
-
+    User user;
     Refresh_classes(Classes context){
         activityRefrence = new WeakReference<>(context);
     }
@@ -187,8 +187,8 @@ class Refresh_classes extends AsyncTask<String , Void , String> {
             out.writeObject(strings);
             out.flush();
 
-            activityRefrence.get().thisUser = (User) in.readObject();
-            activityRefrence.get().thisClass = (Class) in.readObject();
+            user= (User) in.readObject();
+           aClass = (Class) in.readObject();
 
             out.close();
             in.close();
@@ -205,12 +205,11 @@ class Refresh_classes extends AsyncTask<String , Void , String> {
     @Override
     protected void onPostExecute(String s) {
         Classes activity = activityRefrence.get();
-
+        activity.thisClass = aClass;
+        activity.thisUser = user;
         if (activity == null || activity.isFinishing()){
             return;
         }
-
-        //Toast.makeText(activityRefrence.get(), "refreshed", Toast.LENGTH_SHORT).show();
         activity.setToolbar();
 
     }

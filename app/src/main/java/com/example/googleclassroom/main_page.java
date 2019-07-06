@@ -103,6 +103,7 @@ public class main_page extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new SettingsFragment()).commit();
                         break;
                     case R.id.nav_about_us:
+                        recyclerView.setVisibility(View.INVISIBLE);
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new AboutUSFragment()).commit();
                         getSupportActionBar().setTitle("About Us");
                         break;
@@ -166,7 +167,7 @@ class Refresh_main_page extends AsyncTask<String , Void , String> {
     WeakReference<main_page> activityRefrence;
     byte[] pic;
     Class aClass;
-
+    User user;
     Refresh_main_page(main_page context){
         activityRefrence = new WeakReference<>(context);
     }
@@ -186,7 +187,7 @@ class Refresh_main_page extends AsyncTask<String , Void , String> {
             out.writeObject(strings);
             out.flush();
 
-            activityRefrence.get().thisUser = (User) in.readObject();
+            user = (User) in.readObject();
 
             out.close();
             in.close();
@@ -203,7 +204,7 @@ class Refresh_main_page extends AsyncTask<String , Void , String> {
     @Override
     protected void onPostExecute(String s) {
         main_page activity = activityRefrence.get();
-
+        activity.thisUser = user;
         if (activity == null || activity.isFinishing()){
             return;
         }

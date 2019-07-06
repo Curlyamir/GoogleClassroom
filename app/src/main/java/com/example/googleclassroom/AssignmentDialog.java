@@ -1,5 +1,6 @@
 package com.example.googleclassroom;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -279,7 +280,7 @@ class Create_Assign extends AsyncTask<Object , Void , String> {
     boolean result;
     WeakReference<AssignmentDialog> activityRefrence;
     User user;
-
+    Class thisClass;
     Create_Assign(AssignmentDialog context){
         activityRefrence = new WeakReference<>(context);
     }
@@ -300,7 +301,8 @@ class Create_Assign extends AsyncTask<Object , Void , String> {
             out.writeObject(strings[9]);
             out.flush();
 
-
+            user = (User) in.readObject();
+            thisClass = (Class) in.readObject();
             out.close();
             in.close();
             socket.close();
@@ -316,6 +318,8 @@ class Create_Assign extends AsyncTask<Object , Void , String> {
     @Override
     protected void onPostExecute(String s) {
         AssignmentDialog activity = activityRefrence.get();
+        activity.thisUser = user;
+        activity.thisClass = thisClass;
         Refresh_classwork ref = new Refresh_classwork(activity.fragment);
         ref.execute("refresh_classes" , activity.thisUser.username , activity.thisClass.name);
     }
@@ -366,6 +370,7 @@ class Title_check extends AsyncTask<String , Void , String> {
 
     @Override
     protected void onPostExecute(String s) {
+        super.onPostExecute(s);
         AssignmentDialog activity = activityRefrence.get();
 
 //        if (activity == null || activity.isFinishing()){
