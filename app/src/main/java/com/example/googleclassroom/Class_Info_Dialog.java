@@ -49,6 +49,8 @@ public class Class_Info_Dialog extends DialogFragment implements View.OnClickLis
         classRoom = view.findViewById(R.id.room_txt_info);
         info_pic = view.findViewById(R.id.info_img);
         close = view.findViewById(R.id.close_info_class);
+        thisUser = (User) getArguments().getSerializable("user");
+        thisClass = (Class) getArguments().getSerializable("aClass");
         classRoom.setText(thisClass.roomNumber);
         className.setText(thisClass.name);
         classDis.setText(thisClass.description);

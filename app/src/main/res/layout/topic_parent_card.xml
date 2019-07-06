@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <TextView
-        android:id="@+id/topic_title"
+        android:id="@+id/topic_title_classwork"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -21,6 +21,7 @@
         android:textStyle="bold" />
         <ImageButton
             android:layout_width="30dp"
+            android:id="@+id/dots_topic_classwork"
             android:layout_height="30dp"
             android:background="@drawable/ic_dots_students_black_24dp"
             android:layout_marginTop="7dp"
@@ -28,7 +29,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:layout_alignBottom="@+id/topic_title"
+            android:layout_alignBottom="@+id/topic_title_classwork"
             android:background="@color/colorSDark" />
     </RelativeLayout>
     <RelativeLayout
