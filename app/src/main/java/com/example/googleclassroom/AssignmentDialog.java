@@ -97,6 +97,14 @@ public class AssignmentDialog extends DialogFragment implements View.OnClickList
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 //ToDO check assignment title
+
+                Title_check title_check = new Title_check(AssignmentDialog.this);
+                String topic = TopicPicker.getText().toString().trim();
+                if (TopicPicker.getText().toString().trim().equals("")){
+                    topic = "no topic";
+                }
+                title_check.execute("title_check" , titleAssign.getText().toString() , thisUser.username , thisClass.name , topic);
+
             }
         });
         return view;
@@ -319,3 +327,60 @@ class Create_Assign extends AsyncTask<Object , Void , String> {
     }
 }
 
+class Title_check extends AsyncTask<String , Void , String> {
+
+    Socket socket;
+    ObjectOutputStream out;
+    ObjectInputStream in;
+    DataInputStream dataInputStream;
+    boolean result;
+    WeakReference<AssignmentDialog> activityRefrence;
+    User user;
+
+    Title_check(AssignmentDialog context){
+        activityRefrence = new WeakReference<>(context);
+    }
+
+
+    @Override
+    protected String doInBackground(String... strings) {
+
+        try {
+//            Toast.makeText(activityRefrence.get(), "pressed in 1", Toast.LENGTH_SHORT).show();
+            socket = new Socket("10.0.2.2" , 6666);
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
+
+//            Toast.makeText(activityRefrence.get(), "pressed in 2", Toast.LENGTH_SHORT).show();
+
+            out.writeObject(strings);
+            out.flush();
+
+            result = in.readBoolean();
+
+            out.close();
+            in.close();
+            socket.close();
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        AssignmentDialog activity = activityRefrence.get();
+
+//        if (activity == null || activity.isFinishing()){
+//            return;
+//        }
+
+        if (!result){
+            activityRefrence.get().titleAssign.setError("title already exists!");
+        }
+
+    }
+}
