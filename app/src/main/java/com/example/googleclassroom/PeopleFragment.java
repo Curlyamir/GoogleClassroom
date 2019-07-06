@@ -1,6 +1,7 @@
 package com.example.googleclassroom;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import java.net.Socket;
 public class PeopleFragment extends Fragment {
     User thisUser;
     Class thisClass;
+    Classes temp;
     RecyclerView recyclerViewStudent;
     RecyclerView recyclerViewTeacher;
     RecyclerView.Adapter adapterstudent;
@@ -37,6 +39,10 @@ public class PeopleFragment extends Fragment {
     ImageButton addTeach;
     EditText usernamestu;
     EditText usernameteach;
+    PeopleFragment(Classes temp)
+    {
+        this.temp = temp;
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -206,6 +212,9 @@ class AddUsertoClass extends AsyncTask<String, Void, String> {
         activity.recyclerViewStudent.setAdapter(activity.adapterstudent);
         activity.adapterteacher = new Teacher_Adaptor(activity.thisClass.teachers, activity.getContext(), activity.thisUser, activity.thisClass, activity);
         activity.recyclerViewTeacher.setAdapter(activity.adapterteacher);
+
+        Refresh_classes refresh_classes = new Refresh_classes(activity.temp);
+        refresh_classes.execute("refresh_classes" , activity.thisUser.username , activity.thisClass.name);
 
     }
 }
