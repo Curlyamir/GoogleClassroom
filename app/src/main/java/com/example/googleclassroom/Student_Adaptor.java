@@ -90,36 +90,8 @@ public class Student_Adaptor extends RecyclerView.Adapter<Student_Adaptor.ViewHo
                 builder.setMessage("Sure to remove " + Student.username + " from class??").setTitle("?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-//                        new Thread(){
-//                            @Override
-//                            public void run() {
-//                                super.run();
-//                                try {
-//                                    Socket s = new Socket(view.getResources().getString(R.string.ip), 8080);
-//                                    ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
-//                                    ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
-//
-//                                    String[] a = {"RemoveFromClass" , student.username , student.password , cls.code  };
-//                                    oos.writeObject(a);
-//                                    oos.flush();
-//
-//                                    oos.close();
-//                                    ois.close();
-//                                    s.close();
-//
-//                                }catch (Exception e){
-//                                    e.printStackTrace();
-//                                }
-//                            }
-//
-//                        }.start();
-//                        RefreshPOE refreshPOE = new RefreshPOE(activity);
-//                        refreshPOE.execute("RefreshCLW", user.username, user.password, myclass.code) ;
-
                         Student_remove student_remove = new Student_remove(thisContext);
                         student_remove.execute("student_remove" , Student.username , thisClass.name);
-
-
                     }
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -131,7 +103,6 @@ public class Student_Adaptor extends RecyclerView.Adapter<Student_Adaptor.ViewHo
                 dialog.show();
 //                dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor("");
 //                dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor("");
-                dialog.getContext().setTheme(R.style.AppTheme1);
                 return false;
             }
 

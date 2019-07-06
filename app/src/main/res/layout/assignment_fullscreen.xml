@@ -22,7 +22,7 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/assign_dialog_close"
+                android:id="@+id/assign_dialog_closeD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="8dp"
-                android:layout_toEndOf="@id/assign_dialog_close"
+                android:layout_toEndOf="@id/assign_dialog_closeD"
                 android:text="Create Assignment"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
@@ -124,7 +124,7 @@
                 android:id="@+id/date_picker"
                 android:layout_width="100dp"
                 android:layout_toEndOf="@id/text_view_assign1"
-                android:text="No due date"
+                android:hint="No due date"
                 android:textColor="@color/TextOnS"
                 android:layout_height="47dp"
                 android:layout_marginEnd="16dp"
@@ -142,7 +142,7 @@
             <EditText
                 android:id="@+id/time_picker"
                 android:layout_width="100dp"
-                android:text="No due time"
+                android:hint="No due time"
                 android:textColor="@color/TextOnS"
                 android:layout_height="47dp"
                 android:layout_marginEnd="16dp"
@@ -166,7 +166,7 @@
                     android:id="@+id/topic_picker"
                     android:layout_width="100dp"
                     android:layout_toEndOf="@id/text_view_assign3"
-                    android:text="No Topic"
+                    android:hint="No Topic"
                     android:textColor="@color/TextOnS"
                     android:layout_height="47dp"
                     android:layout_marginEnd="16dp"
@@ -189,13 +189,19 @@
                     android:id="@+id/points_picker"
                     android:layout_width="100dp"
                     android:layout_toEndOf="@id/text_view_assign4"
-                    android:text="100"
+                    android:hint="100"
                     android:textColor="@color/TextOnS"
                     android:layout_height="47dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginTop="50dp"
                     android:textSize="16sp" />
             </RelativeLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
+                android:id="@+id/assign_dialog_attach_pic"
+                />
         </LinearLayout>
 
 
