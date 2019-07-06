@@ -27,7 +27,7 @@ import java.net.Socket;
 public class Signin extends AppCompatActivity {
     Socket socket;
     EditText username;
-    private EditText pass;
+    EditText pass;
     private CheckBox check_pass;
     private Button signbtn;
     @Override
@@ -51,8 +51,8 @@ public class Signin extends AppCompatActivity {
 
 //                Toast.makeText(getApplicationContext(), "pressed 2", Toast.LENGTH_SHORT).show();
 
-                Signin_check signin_check = new Signin_check(Signin.this);
-                signin_check.execute(toSend);
+                    Signin_check signin_check = new Signin_check(Signin.this);
+                    signin_check.execute(toSend);
 
 //                Toast.makeText(getApplicationContext(), "pressed 3", Toast.LENGTH_SHORT).show();
 
@@ -161,7 +161,13 @@ class Signin_check extends AsyncTask<String , Void , String> {
             return;
         }
 
-        if (result){
+        if (activityRefrence.get().username.getText().toString().trim().length() == 0 || activityRefrence.get().pass.getText().toString().trim().length() == 0) {
+            Toast.makeText(activity , "all fields should be filled" , Toast.LENGTH_LONG).show();
+        }
+        else if (activityRefrence.get().pass.getText().toString().trim().length() < 5){
+            Toast.makeText(activity , "password is too short!" , Toast.LENGTH_LONG).show();
+        }
+        else if (result){
             Toast.makeText(activity, "You're Logged in Successfully", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(activity, main_page.class);
             intent.putExtra("user" , user);

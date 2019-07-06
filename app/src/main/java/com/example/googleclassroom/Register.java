@@ -76,7 +76,15 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "all fields should be filled !", Toast.LENGTH_LONG).show();
                 }
 
-                else if (profile_pic.getDrawable() !=null) {
+                else if (pass1.getText().toString().trim().length() != pass2.getText().toString().trim().length()){
+                    Toast.makeText(getApplicationContext() , "passwords are not equal" , Toast.LENGTH_LONG).show();
+                }
+
+                else if (pass1.getText().toString().trim().length() < 5 || pass2.getText().toString().trim().length() < 5){
+                    Toast.makeText(getApplicationContext(), "short password!", Toast.LENGTH_LONG).show();
+                }
+
+                else if (profile_pic.getDrawable() != null) {
                     System.out.println("first if start");
                     Bitmap bmp = ((BitmapDrawable) profile_pic.getDrawable()).getBitmap();
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
