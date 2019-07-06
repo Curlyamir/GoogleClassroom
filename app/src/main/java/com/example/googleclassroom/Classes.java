@@ -82,13 +82,13 @@ public class Classes extends AppCompatActivity {
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     if (item.getItemId() == R.id.people_bottom_nav)
                     {
-                        selectedFragment = new PeopleFragment();
+                        selectedFragment = new PeopleFragment(Classes.this);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("user",thisUser);
                         bundle.putSerializable("aClass",thisClass);
                         selectedFragment.setArguments(bundle);
                     }
-                    if (item.getItemId() ==R.id.classwork_bottom_nav)
+                    if (item.getItemId() == R.id.classwork_bottom_nav)
                     {
                         selectedFragment = new ClassworkFragment();
                         Bundle bundle = new Bundle();
