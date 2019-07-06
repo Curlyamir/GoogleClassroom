@@ -55,7 +55,7 @@ public class main_page extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar_main_page);
         thisClass = (Class) getIntent().getSerializableExtra("aClass");
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setTitle("A&H Classroom");
+        getSupportActionBar().setTitle("A&H Classroom");
         //mHandler = new Handler();
         drawer =  findViewById(R.id.drawer_layout);
         navigationView =  findViewById(R.id.nav_view);

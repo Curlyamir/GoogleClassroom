@@ -60,6 +60,11 @@ public class AssignmentDialog extends DialogFragment implements View.OnClickList
     ImageButton close;
     ImageButton complete;
     EditText Topicdialog;
+    ClassworkFragment fragment;
+    AssignmentDialog(ClassworkFragment fragment)
+    {
+        this.fragment = fragment;
+    }
     byte [] imgbyte;
     private int mYear, mMonth, mDay, mHour, mMinute;
 
@@ -199,12 +204,6 @@ public class AssignmentDialog extends DialogFragment implements View.OnClickList
         }
     }
 
-    private void updateLabel(EditText temp) {
-        String myFormat = "MM/dd/yy";
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        temp.setText(sdf.format(myCalendar.getTime()));
-    }
-
     private void showDialog() {
         final String[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -290,7 +289,6 @@ class Create_Assign extends AsyncTask<Object , Void , String> {
     protected String doInBackground(Object... strings) {
 
         try {
-//            Toast.makeText(activityRefrence.get(), "pressed in 1", Toast.LENGTH_SHORT).show();
             socket = new Socket("10.0.2.2" , 6666);
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
@@ -318,12 +316,8 @@ class Create_Assign extends AsyncTask<Object , Void , String> {
     @Override
     protected void onPostExecute(String s) {
         AssignmentDialog activity = activityRefrence.get();
-
-//        if (activity == null || activity.isFinishing()){
-//            return;
-//        }
-
-
+        Refresh_classwork ref = new Refresh_classwork(activity.fragment);
+        ref.execute("refresh_classes" , activity.thisUser.username , activity.thisClass.name);
     }
 }
 

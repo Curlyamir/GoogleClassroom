@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/teacher_name_card"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_margin="25dp">
+    android:layout_margin="25dp"
+    app:cardElevation="0dp">
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"

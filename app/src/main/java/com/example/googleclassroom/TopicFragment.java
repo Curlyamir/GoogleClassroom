@@ -57,8 +57,6 @@ public class TopicFragment extends AppCompatDialogFragment
 
                         Add_topic add_topic = new Add_topic(TopicFragment.this);
                         add_topic.execute("add_topic" , editText.getText().toString() , thisUser.username , thisClass.name);
-                        Refresh_classwork ref = new Refresh_classwork(fragment);
-                        ref.execute("refresh_classes" , thisUser.username , thisClass.name);
                         dialog.dismiss();
                     }
                 });
@@ -126,8 +124,8 @@ class Add_topic extends AsyncTask<String , Void , String> {
     @Override
     protected void onPostExecute(String s) {
         TopicFragment activity = activityRefrence.get();
-
-
+        Refresh_classwork ref = new Refresh_classwork(activity.fragment);
+        ref.execute("refresh_classes" , activity.thisUser.username , activity.thisClass.name);
     }
 }
 
@@ -150,12 +148,11 @@ class Topic_check extends AsyncTask<String , Void , String> {
     protected String doInBackground(String... strings) {
 
         try {
-//            Toast.makeText(activityRefrence.get(), "pressed in 1", Toast.LENGTH_SHORT).show();
+
             socket = new Socket("10.0.2.2" , 6666);
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
 
-//            Toast.makeText(activityRefrence.get(), "pressed in 2", Toast.LENGTH_SHORT).show();
 
             out.writeObject(strings);
             out.flush();
@@ -178,12 +175,14 @@ class Topic_check extends AsyncTask<String , Void , String> {
     protected void onPostExecute(String s) {
         TopicFragment activity = activityRefrence.get();
 
-//        if (activity == null || activity.isFinishing()){
-//            return;
-//        }
-
         if (!result){
             activityRefrence.get().editText.setError("topic already exists!");
+        }
+        else
+        {
+            Refresh_classwork ref = new Refresh_classwork(activity.fragment);
+            ref.execute("refresh_classes" , activity.thisUser.username , activity.thisClass.name);
+
         }
 
     }

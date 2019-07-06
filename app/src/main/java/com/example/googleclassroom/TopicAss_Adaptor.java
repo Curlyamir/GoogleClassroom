@@ -196,7 +196,7 @@ class Assign_Adaptor extends RecyclerView.Adapter<Assign_Adaptor.SecondViewHolde
         Assignment tempass = assignments.get(i);
         viewHolder.assignTime.setText(tempass.time);
         viewHolder.assignTitle.setText(tempass.name);
-        if (isTeacher) {
+        if (!isTeacher) {
             viewHolder.dots.setVisibility(View.INVISIBLE);
         }
 

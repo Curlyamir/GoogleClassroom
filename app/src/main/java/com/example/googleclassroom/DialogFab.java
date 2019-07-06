@@ -47,7 +47,7 @@ public class DialogFab extends DialogFragment implements View.OnClickListener {
 
         if (id == R.id.fab_assign) {
 
-            AssignmentDialog dialg = new AssignmentDialog();
+            AssignmentDialog dialg = new AssignmentDialog(fragment);
             Bundle bundle = new Bundle();
             bundle.putSerializable("user", thisUser);
             bundle.putSerializable("aClass", thisClass);

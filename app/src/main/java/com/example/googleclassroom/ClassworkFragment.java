@@ -32,7 +32,11 @@ public class ClassworkFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_classwork,container,false);
         thisUser = (User) getArguments().getSerializable("user");
         thisClass = (Class) getArguments().getSerializable("aClass") ;
+        topics_list = view.findViewById(R.id.topic_rec_parent);
         boolean isTeacher = thisClass.findTeacher(thisUser);
+        LinearLayoutManager llm1 = new LinearLayoutManager(getContext());
+        topics_list.setLayoutManager(llm1);
+        Create_adptors();
         fab = view.findViewById(R.id.fab_classwork);
         if (!isTeacher)
             fab.hide();
@@ -43,9 +47,6 @@ public class ClassworkFragment extends Fragment
             }
         });
         topics_list = view.findViewById(R.id.topic_rec_parent);
-        LinearLayoutManager temp = new LinearLayoutManager(getContext());
-        temp.setOrientation(LinearLayoutManager.HORIZONTAL);
-        topics_list.setLayoutManager(temp);
         return view;
     }
     public void openDialog()
@@ -56,6 +57,12 @@ public class ClassworkFragment extends Fragment
         bundle.putSerializable("aClass",thisClass);
         dialog.setArguments(bundle);
         dialog.show(getFragmentManager(),"tag");
+    }
+    void Create_adptors()
+    {
+        int temp = thisUser.findClass(thisClass);
+        TopicAss_Adaptor adapter = new TopicAss_Adaptor(this.thisClass,this.thisUser,thisUser.classes.get(temp).topics,this) ;
+        topics_list.setAdapter(adapter);
     }
 }
 class Refresh_classwork extends AsyncTask<String , Void , String> {
@@ -106,7 +113,7 @@ class Refresh_classwork extends AsyncTask<String , Void , String> {
     @Override
     protected void onPostExecute(String s) {
         ClassworkFragment activity = activityRefrence.get();
-
+        activity.Create_adptors();
 
 
     }
